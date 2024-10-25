@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 // import { paymentConfigs, PaymentLinks, PaymentModule } from "@egovernments/digit-ui-module-common";
-import { DigitUI } from "@egovernments/digit-ui-module-core";
-import { initDSSComponents } from "@egovernments/digit-ui-module-dss";
+import { DigitUI } from "@selco/digit-ui-module-core";
+import { initDSSComponents } from "@selco/digit-ui-module-dss";
 import { initEngagementComponents } from "@egovernments/digit-ui-module-engagement";
-import { initHRMSComponents } from "@egovernments/digit-ui-module-hrms";
+import { initHRMSComponents } from "@selco/digit-ui-module-hrms";
 // import { initUtilitiesComponents } from  "@egovernments/digit-ui-module-utilities";
 import {initWorkbenchComponents} from "@egovernments/digit-ui-module-workbench";
-import { initIMComponents,IMReducers } from "@upyog/digit-ui-module-pgr";
+import { initIMComponents,IMReducers } from "@selco/digit-ui-module-pgr";
 import "@egovernments/digit-ui-css/example/index.css";
 
 import { pgrCustomizations } from "./pgr";

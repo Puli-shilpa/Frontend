@@ -6,10 +6,10 @@ ARG WORK_DIR
 WORKDIR /app
 ENV NODE_OPTIONS "--max-old-space-size=8168"
 
-RUN yarn add @upyog/digit-ui-module-pgr@1.9.0
+RUN yarn add @selco/digit-ui-module-pgr
 RUN yarn add @egovernments/digit-ui-module-common
-RUN yarn add @egovernments/digit-ui-module-dss@1.8.0
-RUN yarn add @egovernments/digit-ui-module-core@1.8.1
+RUN yarn add @selco/digit-ui-module-dss
+RUN yarn add @selco/digit-ui-module-core
 
 COPY ${WORK_DIR} .
 RUN ls -lah

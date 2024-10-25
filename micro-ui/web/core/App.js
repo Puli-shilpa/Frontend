@@ -1,10 +1,10 @@
 import React from "react";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
-import { DigitUI } from "@egovernments/digit-ui-module-core";
+import { DigitUI } from "@selco/digit-ui-module-core";
 import { UICustomizations } from "./Customisations/UICustomizations";
 import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
 import { initUtilitiesComponents } from "@egovernments/digit-ui-module-utilities";
-import { initIMComponents,IMReducers } from "@upyog/digit-ui-module-pgr";
+import { initIMComponents,IMReducers } from "@selco/digit-ui-module-pgr";
 
 window.contextPath = "digit-ui" || window?.globalConfigs?.getConfig("CONTEXT_PATH")
 

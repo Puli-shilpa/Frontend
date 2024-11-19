@@ -11,7 +11,7 @@
   "devDependencies": {
     "@egovernments/digit-ui-libraries": "1.8.1",
     "@egovernments/digit-ui-module-workbench": "1.0.1",
-    "@selco/digit-ui-module-dss": "1.0.1",
+    "@selco/digit-ui-module-dss": "1.0.3",
     "@egovernments/digit-ui-module-core": "1.8.0",
     "@egovernments/digit-ui-module-common": "1.8.0",
     "@selco/digit-ui-module-hrms": "1.0.0",

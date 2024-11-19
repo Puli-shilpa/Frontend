@@ -10,8 +10,8 @@
     "packages/modules/im",
     "packages/modules/hrms",
     "packages/modules/core",
-    "packages/modules/dss",
-    "packages/modules/common"
+    "packages/modules/common",
+    "packages/modules/dss"
   ],
   "author": "JaganKumar <jagan.kumar@egov.org.in>",
   "license": "MIT",
@@ -48,7 +48,7 @@
     "build:common": "cd packages/modules/common && yarn build",
     "build:utilities": "cd packages/modules/utilities && yarn build",
     "build:engagement": "cd packages/modules/engagement && yarn build",
-    "build:workbench": "cd packages/modules/workbench && yarn build",
+    "buildD:workbench": "cd packages/modules/workbench && yarn build",
     "deploy:jenkins": "./scripts/jenkins.sh",
     "clean": "rm -rf node_modules"
   },

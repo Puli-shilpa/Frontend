@@ -12,9 +12,9 @@
     "micro-ui-internals/packages/react-components",
     "micro-ui-internals/packages/modules/im",
     "micro-ui-internals/packages/modules/core",
-    "micro-ui-internals/packages/modules/dss",
     "micro-ui-internals/packages/modules/common",
-    "micro-ui-internals/packages/modules/hrms"
+    "micro-ui-internals/packages/modules/hrms",
+    "micro-ui-internals/packages/modules/dss"
   ],
   "homepage": "/digit-ui",
   "dependencies": {
@@ -23,7 +23,7 @@
     "@egovernments/digit-ui-module-core": "1.8.0",
     "@selco/digit-ui-module-hrms": "1.0.0",
     "@egovernments/digit-ui-react-components": "1.8.0",
-    "@selco/digit-ui-module-dss": "1.0.1",
+    "@selco/digit-ui-module-dss": "1.0.3",
     "@egovernments/digit-ui-module-common": "1.8.0",
     "@egovernments/digit-ui-module-utilities": "1.0.0",
     "@egovernments/digit-ui-module-engagement": "1.8.0",

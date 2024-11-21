@@ -106,8 +106,8 @@ let tenants =Digit.SessionStorage.get("Employee.tenantId")
 setSelectTenant(tenants)
 if(selectTenant !== "pg")
 {
-  ticketTypeRef.current.validate()
-  ticketSubTypeRef.current.validate()
+  ticketTypeRef?.current?.validate()
+  ticketSubTypeRef?.current?.validate()
 }
 else {
   handleButtonClick()
@@ -186,14 +186,14 @@ useEffect(async () => {
         setComplaintType(value);
         sessionStorage.setItem("complaintType",JSON.stringify(value))
         setSubTypeMenu([{ key: "Others", name: t("SERVICEDEFS.OTHERS") }]);
-        ticketSubTypeRef.current.validate()
+        ticketSubTypeRef?.current?.validate()
 
       } else {
         setSubType({ name: "" });
         setComplaintType(value);
         sessionStorage.setItem("complaintType",JSON.stringify(value))
         setSubTypeMenu(await serviceDefinitions.getSubMenu(tenantId, value, t));
-        ticketSubTypeRef.current.validate()
+        ticketSubTypeRef?.current?.validate()
       }
     }
   }
@@ -227,7 +227,7 @@ useEffect(async () => {
     setDisableUpload(false)
     setDisable(false)
     setTenant(value?.city?.districtTenantCode)
-    centerTypeRef.current.clearError()
+    centerTypeRef?.current?.clearError()
     setShowToast(null);
     console.log("setHealthCareType",phcSubTypeMenu,value)
    
@@ -363,7 +363,7 @@ useEffect(async () => {
         console.log("field",field)
         if (field === null || field === undefined || Object.keys(field).length === 0) {
           
-          ref.current.validate();
+          ref?.current?.validate();
         }
       });
       

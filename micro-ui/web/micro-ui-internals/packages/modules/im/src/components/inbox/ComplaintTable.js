@@ -30,5 +30,5 @@ const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage
   />
    </div>
 );
-console.log("jhi", ComplaintTable)
+console.log("jhisss", ComplaintTable)
 export default ComplaintTable;

@@ -6,11 +6,12 @@ const useComplaintStatusCount = (complaints,tenant) => {
   let complaintStatus = useComplaintStatus();
   let tenantId = Digit.ULBService.getCurrentTenantId();
   const [statusCount, setStatusCount]=useState();
-  const inboxTotal=sessionStorage.getItem("inboxTotal");
+  const limit=sessionStorage.getItem("limit");
+  const offset=sessionStorage.getItem("offset");
  const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
       tenantId: Digit.ULBService.getCurrentTenantId(),
       ModuleCode: "Incident",
-      filters: { limit: 15, offset: 0, services: ["Incident"]},
+      filters: { limit: limit, offset: offset, sortOrder: "DESC", services: ["Incident"]},
       config: {
         select: (data) => {
           return data;

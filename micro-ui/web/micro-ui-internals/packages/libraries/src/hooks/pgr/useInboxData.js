@@ -7,6 +7,8 @@ const useInboxData = (searchParams,tenantIdNew) => {
   const inboxTotal=sessionStorage.getItem("inboxTotal");
     let commonFilters = { start: 1, end: 10 };
     const { limit, offset } = searchParams;
+    sessionStorage.setItem("limit", JSON.stringify(limit));
+    sessionStorage.setItem("offset", JSON.stringify(offset));
     let appFilters = { ...commonFilters, ...searchParams?.filters?.pgrQuery, ...searchParams?.search, limit, offset };
    let wfFilters
     if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")
@@ -17,37 +19,19 @@ const useInboxData = (searchParams,tenantIdNew) => {
       wfFilters = { ...commonFilters, ...searchParams?.filters?.wfQuery}
     }
     const filterData=(data, appFilters)=>{
-      const {phcType, incidentType, incidentId, applicationStatus, start, limit, offset, end}=appFilters;
-      const filteredItems= data.data.items.filter(item=> {
-        const incident = item.businessObject?.incident;
-        if(!incident) return false;
-        let matches= true;
-        if(phcType) {
-          const convertedPhc=t(`TENANT_TENANTS_${phcType.replace(".", "_").toUpperCase()}`);
-          matches = matches && incident.phcType === convertedPhc;
-        }
-        if(incidentType) {
-          matches = matches && incident.incidentType=== incidentType;
-        }
-        if(incidentId) {
-          matches = matches && incident.incidentId=== incidentId;
-        }
-        if(applicationStatus){
-          matches = matches && incident.applicationStatus=== applicationStatus;
-        }
-        return matches;
-      });
-      const totalItems=filteredItems.length;
+      //const {phcType, incidentType, incidentId, applicationStatus, start, limit, offset, end}=appFilters;
+      const filteredItems= data.data.items;
+      const totalItems=data.data.totalCount;
       // const sortedItems=filteredItems.sort((a,b)=>{
       //   return b.businessObject?.auditDetails?.lastModifiedTime-a.businessObject?.auditDetails?.lastModifiedTime;
       // })
-      const paginationItems=filteredItems.slice(offset, offset+limit);
-      return {total: totalItems, items:paginationItems};
+      //const paginationItems=filteredItems.slice(limit, offset+limit); 
+      return {total: totalItems, items:filteredItems};
     };
   const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
     tenantId: Digit.ULBService.getCurrentTenantId(),
     ModuleCode: "Incident",
-    filters: {  limit: 15, offset: 0,  services: ["Incident"] },
+    filters: {  ...appFilters, sortOrder: "DESC", services: ["Incident"] },
     config: {
       select: (data) => {
         return {data: data} || "-";
@@ -100,12 +84,10 @@ const useInboxData = (searchParams,tenantIdNew) => {
     if(filteredData!==undefined&& filteredData?.items?.length>0){
       incidentDetails= filteredData.items.map(incident=>incident.businessObject.incident);
     }
+  
+    const workflowInstances=filteredData&& filteredData?.items.map(instances=>instances.ProcessInstance)
     
-    incidentDetails.forEach((incident) => serviceIds.push(incident.incidentId));
-        const serviceIdParams = serviceIds.join();
-    
-    const workflowInstances = await Digit.WorkflowService.getByBusinessId(tenantId, serviceIdParams, wfFilters, false);
-    if (workflowInstances.ProcessInstances.length>0) {
+    if (workflowInstances.length>0) {
       combinedRes = combineResponses(incidentDetails, workflowInstances).map((data) => ({
         ...data,
         sla: Math.round(data.sla / (24 * 60 * 60 * 1000)),
@@ -135,7 +117,7 @@ const mapWfBybusinessId = (wfs) => {
 };
 
 const combineResponses = (incidentDetails, workflowInstances) => {
-  let wfMap = mapWfBybusinessId(workflowInstances.ProcessInstances);
+  let wfMap = mapWfBybusinessId(workflowInstances);
   let data = [];
   incidentDetails.map((incident) => {
     if (wfMap?.[incident.incidentId]) {

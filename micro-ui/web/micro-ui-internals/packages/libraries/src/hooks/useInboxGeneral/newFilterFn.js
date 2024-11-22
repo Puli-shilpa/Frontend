@@ -5,18 +5,18 @@ export const filterFunctions = {
     const searchFilters = {};
     const workflowFilters = {};
 
-    const { incidentId, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services } = filtersArg || {};
+    const { incidentId, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services, incidentType, phcType } = filtersArg || {};
 
     if (filtersArg?.IncidentWrappers) {
       searchFilters.applicationNumber = filtersArg?.incidentId;
     }
     
-    if (applicationStatus && applicationStatus?.[0]) {
-      workflowFilters.status = applicationStatus.map((status) => status.uuid);
-      if (applicationStatus?.some((e) => e.nonActionableRole)) {
-        searchFilters.fetchNonActionableRecords = true;
-      }
-    }
+    // if (applicationStatus && applicationStatus?.[0]) {
+    //   workflowFilters.status = applicationStatus.map((status) => status.uuid);
+    //   if (applicationStatus?.some((e) => e.nonActionableRole)) {
+    //     searchFilters.fetchNonActionableRecords = true;
+    //   }
+    // }
     
     if (filtersArg?.uuid && filtersArg?.uuid.code === "ASSIGNED_TO_ME") {
       workflowFilters.assignee = uuid;
@@ -28,7 +28,7 @@ export const filterFunctions = {
       workflowFilters.businessService = services;
     }
     searchFilters["tenantId"] = Digit.ULBService.getCurrentTenantId();
-    searchFilters["sortOrder"] = "DESC";
+    //searchFilters["sortOrder"] = "DESC";
    // searchFilters["creationReason"] = ["CREATE", "MUTATION", "UPDATE"];
     workflowFilters["moduleName"] = "Incident";
     workflowFilters["tenantId"]=Digit.ULBService.getCurrentTenantId();
@@ -42,6 +42,6 @@ export const filterFunctions = {
 
     // workflowFilters.businessService = "PT.CREATE";
     // searchFilters.mobileNumber = "9898568989";
-    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder };
+    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, incidentType, phcType };
   },
 };

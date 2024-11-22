@@ -35,7 +35,7 @@ const Inbox = () => {
         tenantId = codes
       }
 
-      let response = await Digit.PGRService.count(tenantId, applicationStatus?.length > 0  ? {applicationStatus} : {} );
+      //let response = await Digit.PGRService.count(tenantId, applicationStatus?.length > 0  ? {applicationStatus} : {} );
       // if (response?.count) {
       //   setTotalRecords(response.count);
       // }
@@ -72,7 +72,8 @@ const Inbox = () => {
   let { data: complaints, isLoading } =isMobile? Digit.Hooks.pgr.useInboxData({ ...searchParams }):Digit.Hooks.pgr.useInboxData({ ...searchParams,offset: pageOffset, limit: pageSize }) ;
   useEffect(()=>{
     if(complaints!==undefined && complaints.combinedRes.length!==0){
-      setTotalRecords(complaints.total)
+      const total=complaints.total
+      setTotalRecords(total)
     }
   },[totalRecords, complaints]) 
   if (complaints?.length !== null) {

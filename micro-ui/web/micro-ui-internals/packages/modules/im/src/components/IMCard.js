@@ -14,13 +14,14 @@ const IMCard = () => {
     filters: { limit: 10, offset: 0, services: ["Incident"] },
     config: {
       select: (data) => {
-        return {totalCount:data?.totalCount,nearingSlaCount:data?.nearingSlaCount} || "-";
+        return {totalCount:data?.totalCount,nearingSlaCount:data?.nearingSlaCount, data:data} || "-";
       },
       enabled: Digit.Utils.pgrAccess(),
     },
-      
+    
     
   });
+  sessionStorage.setItem("applicationStatus", JSON.stringify(data?.data?.statusMap));
   
   useEffect(() => {
     if (!isFetching && isSuccess) setTotal(data);
@@ -56,10 +57,10 @@ const IMCard = () => {
           .join(',');
         tenantId = tenantId == "pg" ? codes : tenantId
       }
-      let response = await Digit.PGRService.count(tenantId, {});
-      if (response?.count) {
-        setTotal(response.count);
-      }
+      // let response = await Digit.PGRService.count(tenantId, {});
+      // if (response?.count) {
+      //   setTotal(response.count);
+      // }
     })();
   }, []);
  

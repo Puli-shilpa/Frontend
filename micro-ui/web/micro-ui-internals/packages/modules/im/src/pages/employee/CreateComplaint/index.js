@@ -502,12 +502,12 @@ useEffect(async () => {
           module="Incident" 
           tenantId={tenantId} 
           getFormState={(e) => getData(e)}
-          allowedFileTypesRegex={/(jpg|jpeg|png|image|mp3|mp4|xlsx)$/i}
+          allowedFileTypesRegex={/(jpg|jpeg|png|image)$/i}
           allowedMaxSizeInMB={5}
           maxFilesAllowed={5}
           disabled={disbaledUpload}
           ulb={Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage.get("Employee.tenantId"  ):healthcentre?.code}
-          acceptFiles= {".png, .image, .jpg, .jpeg, .mp3, .mp4, .xlsx"}
+          acceptFiles= {".png, .image, .jpg, .jpeg"}
           />
                {/* <ImageUploadHandler tenantId={tenant} uploadedImages={uploadedImages} onPhotoChange={handleUpload} disabled={disbaled}/> */}
           <div style={{marginLeft:'20px', marginTop:"10px", fontSize:'12px'}}>{t("CS_IMAGE_BASED_FILES_ARE_ACCEPTED")}</div>

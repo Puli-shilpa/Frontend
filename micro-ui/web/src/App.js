@@ -10,7 +10,7 @@ import {
   IMReducers,
 } from "@egovernments/digit-ui-module-pgr";
 import { DigitUI } from "@egovernments/digit-ui-module-core";
-import { initDSSComponents } from "@egovernments/digit-ui-module-dss";
+
 import { initEngagementComponents } from "@egovernments/digit-ui-module-engagement";
 import { initHRMSComponents } from "@egovernments/digit-ui-module-hrms";
 import { initUtilitiesComponents } from "@egovernments/digit-ui-module-utilities";
@@ -44,7 +44,7 @@ const initDigitUI = () => {
     PaymentLinks,
   });
   initIMComponents();
-  initDSSComponents();
+ 
   initHRMSComponents();
   initEngagementComponents();
   initUtilitiesComponents();

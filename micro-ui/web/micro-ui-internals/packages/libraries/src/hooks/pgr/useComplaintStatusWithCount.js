@@ -6,12 +6,12 @@ const useComplaintStatusCount = (complaints,tenant) => {
   let complaintStatus = useComplaintStatus();
   let tenantId = Digit.ULBService.getCurrentTenantId();
   const [statusCount, setStatusCount]=useState();
-  const limit=sessionStorage.getItem("limit");
-  const offset=sessionStorage.getItem("offset");
- const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
+  const appFilters=JSON.parse(sessionStorage.getItem("appFilters"));
+  const { limit, offset, incidentType, phcType, applicationStatus }=appFilters;
+    const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
       tenantId: Digit.ULBService.getCurrentTenantId(),
       ModuleCode: "Incident",
-      filters: { limit: limit, offset: offset, sortOrder: "DESC", services: ["Incident"]},
+      filters: { limit: limit, offset: offset,sortOrder: "DESC", services: ["Incident"]},
       config: {
         select: (data) => {
           return data;
@@ -19,22 +19,18 @@ const useComplaintStatusCount = (complaints,tenant) => {
         enabled: Digit.Utils.pgrAccess(),
       },  
     });
-    useEffect(() => {
-      if (!isFetching && isSuccess && !isLoading) {
-        if(data!==undefined){
-          const counts=data.items.reduce((acc, item)=>{
-              const status=item.businessObject.incident.applicationStatus;
+    useEffect(() => { 
+        if(data && data.items){
+          const counts=data.statusMap.reduce((acc, item)=>{
+              const status=item.applicationstatus;
               if(status){
-                acc[status]=(acc[status]|| 0)+1;
+                acc[status]=item.count;
               }
               return acc; 
             },{});
             setStatusCount(counts);
         }
-      };
-      // 
-    }, [isFetching, isSuccess,isLoading, data]);
-  
+      }, [data]);
   useEffect(() => {
     const getStatusWithCount = async () => {
         let statusWithCount = complaintStatus.map(async (status) => {

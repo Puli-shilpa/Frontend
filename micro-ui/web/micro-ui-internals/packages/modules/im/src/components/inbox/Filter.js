@@ -169,7 +169,6 @@ if(translatedPhcMenu.length>0){
     });
     setPgrFilters({ ...pgrfilters, [key]: afterRemove });
   };
-  sessionStorage.getItem("applicationStatus");
   const handleAssignmentChange = (e, type) => {
     if (e.target.checked) {
       setPgrFilters({ ...pgrfilters, applicationStatus: [...pgrfilters.applicationStatus, { code: type.code }] });

@@ -10,6 +10,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     sessionStorage.setItem("limit", JSON.stringify(limit));
     sessionStorage.setItem("offset", JSON.stringify(offset));
     let appFilters = { ...commonFilters, ...searchParams?.filters?.pgrQuery, ...searchParams?.search, limit, offset };
+    sessionStorage.setItem("appFilters", JSON.stringify(appFilters));
    let wfFilters
     if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")
     {
@@ -22,11 +23,12 @@ const useInboxData = (searchParams,tenantIdNew) => {
       //const {phcType, incidentType, incidentId, applicationStatus, start, limit, offset, end}=appFilters;
       const filteredItems= data.data.items;
       const totalItems=data.data.totalCount;
+      const statusArray=data.data.statusMap;
       // const sortedItems=filteredItems.sort((a,b)=>{
       //   return b.businessObject?.auditDetails?.lastModifiedTime-a.businessObject?.auditDetails?.lastModifiedTime;
       // })
       //const paginationItems=filteredItems.slice(limit, offset+limit); 
-      return {total: totalItems, items:filteredItems};
+      return {total: totalItems, items:filteredItems, statusarray: statusArray};
     };
   const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
     tenantId: Digit.ULBService.getCurrentTenantId(),
@@ -45,7 +47,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     if(isSuccess && data){
       return filterData(data, appFilters)
     }
-    return {total:0, item:[]}
+    return {total:0, item:[], statusarray:[]}
   }, [data, isSuccess, appFilters]);
 
   useEffect(() => {
@@ -96,7 +98,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     }
     
    
-    return {combinedRes:combinedRes, total:filteredData?.total};
+    return {combinedRes:combinedRes, total:filteredData?.total, statusArray: filteredData?.statusarray};
    
   };
 

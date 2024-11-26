@@ -91,7 +91,7 @@ const Inbox = () => {
           </div> 
           </div>
           <DesktopInbox
-            data={complaints?.combinedRes}
+            data={complaints}
             isLoading={isLoading}
             onFilterChange={handleFilterChange}
             onSearch={onSearch}

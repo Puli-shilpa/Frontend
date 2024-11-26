@@ -5,18 +5,22 @@ export const filterFunctions = {
     const searchFilters = {};
     const workflowFilters = {};
 
-    const { incidentId, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services, incidentType, phcType } = filtersArg || {};
+    const { applicationNumber, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services, incidentType, phcType } = filtersArg || {};
 
     if (filtersArg?.IncidentWrappers) {
       searchFilters.applicationNumber = filtersArg?.incidentId;
     }
     
-    // if (applicationStatus && applicationStatus?.[0]) {
-    //   workflowFilters.status = applicationStatus.map((status) => status.uuid);
-    //   if (applicationStatus?.some((e) => e.nonActionableRole)) {
-    //     searchFilters.fetchNonActionableRecords = true;
-    //   }
-    // }
+    if (applicationStatus) {
+      let convertStatus=[applicationStatus];
+      if(applicationStatus.includes(",")){
+        convertStatus=applicationStatus.split(',')
+      }
+      workflowFilters.status = convertStatus;
+      // if (applicationStatus?.some((e) => e.nonActionableRole)) {
+      //   searchFilters.fetchNonActionableRecords = true;
+      // }
+    }
     
     if (filtersArg?.uuid && filtersArg?.uuid.code === "ASSIGNED_TO_ME") {
       workflowFilters.assignee = uuid;
@@ -42,6 +46,6 @@ export const filterFunctions = {
 
     // workflowFilters.businessService = "PT.CREATE";
     // searchFilters.mobileNumber = "9898568989";
-    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, incidentType, phcType };
+    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber };
   },
 };

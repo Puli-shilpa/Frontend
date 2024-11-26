@@ -57,7 +57,7 @@ const DesktopInbox = ({
       {
         Header: t("CS_COMMON_TICKET_NO"),
         Cell: ({ row }) => {
-          console.log("rowrow",row)
+          
           return (
             <div>
               <span className="link">
@@ -111,7 +111,7 @@ const DesktopInbox = ({
   let result;
   if (isLoading) {
     result = <Loader />;
-  } else if (data && data.length === 0) {
+  } else if (data && data.combinedRes.length === 0) {
     result = (
       <Card style={{ marginTop: 20 }}>
        <div style={{color:"#7a2824", marginTop:isIpadView? "210px":""}}> {t(LOCALE.NO_COMPLAINTS_EMPLOYEE)
@@ -124,11 +124,11 @@ const DesktopInbox = ({
           </div>
       </Card>
     );
-  } else if (data?.length > 0) {
+  } else if (data?.combinedRes?.length > 0) {
     result = (
       <ComplaintTable
         t={t}
-        data={data}
+        data={data?.combinedRes}
         columns={columns}
         getCellProps={(cellInfo) => {
           return {

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 // import { CreateComplaint } from "./CreateComplaint";
 // import Inbox from "./Inbox";
 import { Employee } from "../../constants/Routes";
-console.log("empNew", Employee)
+console.log("emp122222", Employee)
 
 // import Response from "./Response";
 
@@ -47,14 +47,14 @@ const Complaint = () => {
 
   let location = "/digit-ui/employee/im/incident/create";
 
-  // const CreateComplaint = Digit?.ComponentRegistryService?.getComponent('PGRCreateComplaintEmp');
-  // const ComplaintDetails = Digit?.ComponentRegistryService?.getComponent('PGRComplaintDetails');
-  // const Inbox = Digit?.ComponentRegistryService?.getComponent('PGRInbox');
-  // const Response = Digit?.ComponentRegistryService?.getComponent('PGRResponseEmp');
+  const CreateComplaint = Digit?.ComponentRegistryService?.getComponent('PGRCreateComplaintEmp');
+  const ComplaintDetails = Digit?.ComponentRegistryService?.getComponent('PGRComplaintDetails');
+  const Inbox = Digit?.ComponentRegistryService?.getComponent('PGRInbox');
+  const Response = Digit?.ComponentRegistryService?.getComponent('PGRResponseEmp');
 
   return (
     <React.Fragment>
-      {/* <div className="ground-container">
+      <div className="ground-container">
         {!location.includes(Employee.Response) && (
           <Switch>
             <Route
@@ -81,8 +81,7 @@ const Complaint = () => {
           <Route path={match.url + Employee.Inbox} component={Inbox} />
           <Route path={match.url + Employee.Response} component={Response} />
         </Switch>
-      </div> */}
-      <div>Selco Foundation </div>
+      </div>
       {/* <ActionBar>
         {displayMenu ? <Menu options={["Assign Complaint", "Reject Complaint"]} onSelect={popupCall} /> : null}
         <SubmitBar label="Take Action" onSubmit={() => setDisplayMenu(!displayMenu)} />

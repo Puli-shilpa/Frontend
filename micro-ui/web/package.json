@@ -9,7 +9,13 @@
   },
   "workspaces": [
     "micro-ui-internals/packages/libraries",
-    "micro-ui-internals/packages/react-components"
+    "micro-ui-internals/packages/react-components",
+    "micro-ui-internals/packages/modules/common",
+    "micro-ui-internals/packages/modules/core",
+    "micro-ui-internals/packages/modules/im",
+    "micro-ui-internals/packages/modules/hrms",
+    "micro-ui-internals/packages/modules/dss",
+    "micro-ui-internals/packages/modules/workbench"
   ],
   "homepage": "/digit-ui",
   "dependencies": {

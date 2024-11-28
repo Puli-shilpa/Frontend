@@ -5,14 +5,8 @@
   "workspaces": [
     "packages/libraries",
     "example",
-    "packages/css",
     "packages/react-components",
-    "packages/modules/im",
-    "packages/modules/core",
-    "packages/modules/common",
-    "packages/modules/dss",
-    "packages/modules/hrms",
-    "packages/modules/workbench"
+    "packages/modules/*"
   ],
   "author": "JaganKumar <jagan.kumar@egov.org.in>",
   "license": "MIT",
@@ -48,7 +42,7 @@
     "build:im": "cd packages/modules/im && yarn build",
     "build:common": "cd packages/modules/common && yarn build",
     "build:utilities": "cd packages/modules/utilities && yarn build",
-    "buildD:engagement": "cd packages/modules/engagement && yarn build",
+    "build:engagement": "cd packages/modules/engagement && yarn build",
     "build:workbench": "cd packages/modules/workbench && yarn build",
     "deploy:jenkins": "./scripts/jenkins.sh",
     "clean": "rm -rf node_modules"

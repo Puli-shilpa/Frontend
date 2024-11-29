@@ -5,11 +5,11 @@ RUN apk add --no-cache git>2.30.0
 
 RUN yarn add @egovernments/digit-ui-libraries@1.8.1
 RUN yarn add @egovernments/digit-ui-module-core@1.8.1
-RUN yarn add @egovernments/digit-ui-module-pgr@1.7.0-beta.2
-RUN yarn add @egovernments/digit-ui-module-hrms@1.8.0
+RUN yarn add @selco/digit-ui-module-pgr@1.0.1
+RUN yarn add @selco/digit-ui-module-hrms@1.0.0
 RUN yarn add @egovernments/digit-ui-module-utilities
 RUN yarn add @egovernments/digit-ui-react-components@1.8.0
-RUN yarn add @egovernments/digit-ui-module-dss@1.8.0
+RUN yarn add @selco/digit-ui-module-dss@1.0.1
 RUN yarn add @egovernments/digit-ui-module-engagement
 RUN yarn add @egovernments/digit-ui-module-common@1.8.0
 RUN yarn add @egovernments/digit-ui-module-workbench@1.0.1

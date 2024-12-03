@@ -1,6 +1,6 @@
 {
   "name": "micro-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "license": "MIT",
   "private": true,
@@ -16,7 +16,7 @@
   "dependencies": {
     "@egovernments/digit-ui-libraries": "1.8.1",
     "@egovernments/digit-ui-module-workbench": "1.0.1",
-    "@egovernments/digit-ui-module-core": "1.8.1",
+    "@selco/digit-ui-module-core": "1.0.1",
     "@selco/digit-ui-module-pgr": "1.0.1",
     "@egovernments/digit-ui-react-components": "1.8.0",
     "@egovernments/digit-ui-module-utilities": "1.0.0",
@@ -57,7 +57,8 @@
     "**/@babel/core": "7.14.0",
     "**/@babel/preset-env": "7.14.0",
     "**/@babel/plugin-transform-modules-commonjs": "7.14.0",
-    "**/polished":"4.2.2"
+    "**/polished":"4.2.2",
+    "**/styled-components": "5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

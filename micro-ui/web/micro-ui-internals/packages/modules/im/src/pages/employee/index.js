@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 // import { CreateComplaint } from "./CreateComplaint";
 // import Inbox from "./Inbox";
 import { Employee } from "../../constants/Routes";
-console.log("emp", Employee)
+console.log("emp122222", Employee)
 
 // import Response from "./Response";
 

@@ -23,7 +23,9 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@selco/digit-ui-module-hrms":"^1.0.0",
+
+"@selco/digit-ui-module-hrms":"^1.5.0",
+
 ```
 
 then navigate to App.js

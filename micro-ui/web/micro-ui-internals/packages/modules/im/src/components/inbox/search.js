@@ -27,12 +27,12 @@ const SearchComplaint = ({ onSearch, type, onClose, searchParams }) => {
     console.log("subdatra", data,phcType)
     if (!Object.keys(errors).filter((i) => errors[i]).length) {
       if (data.serviceRequestId !== "" && phcType?.code !=="") {
-        onSearch({ incidentId: data.serviceRequestId,phcType: phcType?.code });
+        onSearch({ applicationNumber: data.serviceRequestId,phcType: phcType?.code });
       } else if (data.code !== "") {
         onSearch({ phcType: phcType?.code });
       } 
       else if(data.serviceRequestId !== "" ){
-        onSearch({ incidentId: data.serviceRequestId})
+        onSearch({ applicationNumber: data.serviceRequestId})
       }
         else {
         onSearch({});
@@ -63,7 +63,7 @@ const SearchComplaint = ({ onSearch, type, onClose, searchParams }) => {
     setComplaintNo(e.target.value);
   }
 useEffect(()=>{
-console.log()
+
 if(Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage.get("Tenants"):Digit.SessionStorage.get("IM_TENANTS"))
 {
   let empTenant = Digit.SessionStorage.get("Employee.tenantId")
@@ -109,30 +109,16 @@ if(Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage
                   style={{ marginBottom: "8px" }}
                 ></TextInput>
               </span>
-              <span className="mobile-input">
-                <Label>{t("CS_COMMON_PHC_TYPE")}</Label>
-                <Dropdown
-                option={sortedPhcMenu}
-                  //name="mobileNumber"
-                  optionKey="name"
-                  id="healthCentre"
-                  selected={phcType}
-                  select={setPhcTypeFunction}
-                  // disable={true}
-                  inputRef={register({
-                    pattern: /^[6-9]\d{9}$/,
-                  })}
-                ></Dropdown>
-              </span>
+              
               {type === "desktop" && (
-                <div style={{display:'flex', alignItems:'center',marginTop: "5px"}}>
+                <div style={{display:'flex', marginTop: "32px", marginLeft:"50px"}}>
                 <SubmitBar
                   style={{ marginLeft: "10px" }}
                   label={t("ES_COMMON_SEARCH")}
                   submit={true}
                   disabled={Object.keys(errors).filter((i) => errors[i]).length}
                 />
-                <span className="clear-search" style={{color:"#7a2829", marginLeft:"15px", marginTop:"10px"}}>{clearAll()}</span>
+                <span className="clear-search" style={{color:"#7a2829", marginLeft:"15px", marginTop:"10px", marginLeft:"50px"}}>{clearAll()}</span>
                 </div>
               )}
              </div>

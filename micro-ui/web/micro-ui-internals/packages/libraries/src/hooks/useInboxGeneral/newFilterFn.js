@@ -1,29 +1,25 @@
 export const filterFunctions = {
-  PT: (filtersArg) => {
+  Incident: (filtersArg) => {
     let { uuid } = Digit.UserService.getUser()?.info || {};
 
     const searchFilters = {};
     const workflowFilters = {};
 
-    const { propertyIds, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services } = filtersArg || {};
+    const { applicationNumber, mobileNumber, limit, offset, sortBy, sortOrder, total, applicationStatus, services, incidentType, phcType } = filtersArg || {};
 
-    if (filtersArg?.acknowledgementIds) {
-      searchFilters.applicationNumber = filtersArg?.acknowledgementIds;
+    if (filtersArg?.IncidentWrappers) {
+      searchFilters.applicationNumber = filtersArg?.incidentId;
     }
-    if (filtersArg?.propertyIds) {
-      searchFilters.propertyId = propertyIds;
-    }
-    if (filtersArg?.oldpropertyids) {
-      searchFilters.oldpropertyids = filtersArg?.oldpropertyids;
-    };
-    if (applicationStatus && applicationStatus?.[0]) {
-      workflowFilters.status = applicationStatus.map((status) => status.uuid);
-      if (applicationStatus?.some((e) => e.nonActionableRole)) {
-        searchFilters.fetchNonActionableRecords = true;
+    
+    if (applicationStatus) {
+      let convertStatus=[applicationStatus];
+      if(applicationStatus.includes(",")){
+        convertStatus=applicationStatus.split(',')
       }
-    }
-    if (filtersArg?.locality?.length) {
-      searchFilters.locality = filtersArg?.locality.map((item) => item.code.split("_").pop());
+      workflowFilters.status = convertStatus;
+      // if (applicationStatus?.some((e) => e.nonActionableRole)) {
+      //   searchFilters.fetchNonActionableRecords = true;
+      // }
     }
     
     if (filtersArg?.uuid && filtersArg?.uuid.code === "ASSIGNED_TO_ME") {
@@ -35,9 +31,12 @@ export const filterFunctions = {
     if (services) {
       workflowFilters.businessService = services;
     }
-    searchFilters["isInboxSearch"] = true;
-    searchFilters["creationReason"] = ["CREATE", "MUTATION", "UPDATE"];
-    workflowFilters["moduleName"] = "PT";
+    searchFilters["tenantId"] = Digit.ULBService.getCurrentTenantId();
+    //searchFilters["sortOrder"] = "DESC";
+   // searchFilters["creationReason"] = ["CREATE", "MUTATION", "UPDATE"];
+    workflowFilters["moduleName"] = "Incident";
+    workflowFilters["tenantId"]=Digit.ULBService.getCurrentTenantId();
+
     // if (limit) {
     //   searchFilters.limit = limit;
     // }
@@ -47,6 +46,6 @@ export const filterFunctions = {
 
     // workflowFilters.businessService = "PT.CREATE";
     // searchFilters.mobileNumber = "9898568989";
-    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder };
+    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber };
   },
 };

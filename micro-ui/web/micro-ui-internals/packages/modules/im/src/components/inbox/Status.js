@@ -2,8 +2,8 @@ import React from "react";
 import { CheckBox, Loader } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
-const Status = ({ complaints, onAssignmentChange, pgrfilters }) => {
-  console.log("pgrfilterspgrfilters",pgrfilters)
+const Status = ({ complaints, onAssignmentChange, pgrfilters, statusArray }) => {
+  
   const { t } = useTranslation();
   let tenant = Digit.ULBService.getCurrentTenantId();
   const isCodePresent = (array, codeToCheck) =>{

@@ -587,7 +587,7 @@ export const ComplaintDetails = (props) => {
     }
    else if(checkpoint.status === "CLOSEDAFTERRESOLUTION")
     {      
-      console.log("checkpointcheckpointcheckpoint",checkpoint)
+      
     return <TLCaption data={""} comments={checkpoint?.wfComment}/>;
 
     }

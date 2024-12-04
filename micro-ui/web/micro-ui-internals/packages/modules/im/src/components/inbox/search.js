@@ -6,11 +6,11 @@ export const isCodePresent = (array, codeToCheck) =>{
   return array.some(item => item.code === codeToCheck);
 }
 const SearchComplaint = ({ onSearch, type, onClose, searchParams }) => {
-  console.log("searchparams", searchParams)
+  
   const [complaintNo, setComplaintNo] = useState(searchParams?.search?.serviceRequestId || "");
   let healthcareTenant = Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
   const [phcType, setPhcType]=useState()
-  console.log("ccc", complaintNo)
+  
   const state = Digit.ULBService.getStateId();
   const { isMdmsLoading, data: mdmsData } = Digit.Hooks.pgr.useMDMS(state, "Incident", ["District","Block"]);
   const {  data: phcMenu  } = Digit.Hooks.pgr.useMDMS(state, "tenant", ["tenants"]);
@@ -24,7 +24,7 @@ const SearchComplaint = ({ onSearch, type, onClose, searchParams }) => {
   const { t } = useTranslation();
  
   const onSubmitInput = (data) => {
-    console.log("subdatra", data,phcType)
+    
     if (!Object.keys(errors).filter((i) => errors[i]).length) {
       if (data.serviceRequestId !== "" && phcType?.code !=="") {
         onSearch({ applicationNumber: data.serviceRequestId,phcType: phcType?.code });
@@ -68,7 +68,7 @@ if(Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage
 {
   let empTenant = Digit.SessionStorage.get("Employee.tenantId")
   let filtered = Digit.SessionStorage.get("IM_TENANTS").filter((abc)=> abc.code ==empTenant)
-  console.log("filtered",filtered)
+  
   if(!filtered?.[0].code === "pg")
   {
     setPhcTypeFunction(filtered?.[0])

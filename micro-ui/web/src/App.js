@@ -44,7 +44,7 @@ const initDigitUI = () => {
     PaymentLinks,
   });
   initIMComponents();
-  initDSSComponents();
+ 
   initHRMSComponents();
   initEngagementComponents();
   initUtilitiesComponents();

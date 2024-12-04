@@ -57,7 +57,7 @@ const DesktopInbox = ({
       {
         Header: t("CS_COMMON_TICKET_NO"),
         Cell: ({ row }) => {
-          console.log("rowrow",row)
+          
           return (
             <div>
               <span className="link">

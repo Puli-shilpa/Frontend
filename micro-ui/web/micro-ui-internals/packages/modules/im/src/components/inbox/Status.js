@@ -13,7 +13,7 @@ const Status = ({ complaints, onAssignmentChange, pgrfilters, statusArray }) => 
   if(pgrfilters?.phcType.length >0)
   {
      tenant = pgrfilters?.phcType.map((ulb)=> {return ulb.code}).join(",")
-    console.log("tenanttenant",tenant)
+    
   }
   else if (isCodePresent(userRoles, "COMPLAINT_RESOLVER") && (pgrfilters?.phcType.length ==0) && Digit.SessionStorage.get("Employee.tenantId") == "pg")
   {
@@ -21,11 +21,11 @@ const Status = ({ complaints, onAssignmentChange, pgrfilters, statusArray }) => 
     .map(item => item.code)
     .join(',');
     tenant = codes
-    console.log("tenanttenant11",tenant,Digit.SessionStorage.get("Employee.tenantId"))
+
   }
   const complaintsWithCount =Digit.Hooks.pgr.useComplaintStatusCount(complaints,tenant);
   
-  console.log("complaintcount", complaintsWithCount)
+  
   let hasFilters = pgrfilters?.applicationStatus?.length;
   return (
     <div className="status-container">

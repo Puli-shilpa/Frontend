@@ -43,21 +43,10 @@ const useInboxData = (searchParams,tenantIdNew) => {
       
     
   });
-  const filteredData= useMemo(()=>{
-    if(isSuccess && data){
-      return filterData(data, appFilters)
-    }
-    return {total:0, item:[], statusarray:[]}
-  }, [data, isSuccess, appFilters]);
-
-  useEffect(() => {
-    if (!isFetching && isSuccess);
-     
-  }, [isFetching]);
-  
+  const filteredData= isSuccess && data ? filterData(data, appFilters) : {total:0, items:[], statusArray:[]};
   
   const client = useQueryClient();
-  const fetchInboxData = async () => {
+  const fetchInboxData =  () => {
     let tenantId = Digit.ULBService.getCurrentTenantId();
     const tenants = Digit.SessionStorage.get("Tenants").map(item => item.code).join(',');
     const codes = Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
@@ -102,14 +91,9 @@ const useInboxData = (searchParams,tenantIdNew) => {
    
   };
 
-  const result = useQuery(["fetchInboxData", 
-  ...Object.keys(searchParams).map(i =>
-      typeof searchParams[i] === "object" ? Object.keys(searchParams[i]).map(e => searchParams[i][e]) : searchParams[i]
-     )],
-  fetchInboxData,
-  { staleTime: Infinity }
-  );
-    return { ...result, revalidate: () => client.refetchQueries(["fetchInboxData"]) };
+  const result = fetchInboxData()
+  
+    return {data:result};
  };
 
 const mapWfBybusinessId = (wfs) => {

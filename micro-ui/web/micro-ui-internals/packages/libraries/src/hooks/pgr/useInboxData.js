@@ -33,7 +33,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
   const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
     tenantId: Digit.ULBService.getCurrentTenantId(),
     ModuleCode: "Incident",
-    filters: {  ...appFilters, sortOrder: "DESC", services: ["Incident"] },
+    filters: {  ...appFilters, ...wfFilters, sortOrder: "DESC", services: ["Incident"] },
     config: {
       select: (data) => {
         return {data: data} || "-";

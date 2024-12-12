@@ -38,13 +38,13 @@ const useNewInboxGeneral = ({ tenantId, ModuleCode, filters, middleware = [], co
   const client = useQueryClient();
   const { t } = useTranslation();
   const { fetchFilters, searchResponseKey, businessIdAliasForSearch, businessIdsParamForSearch } = inboxConfig()[ModuleCode];
-  let { workflowFilters, searchFilters, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber } = fetchFilters(filters);
+  let { workflowFilters, searchFilters, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber, assignee } = fetchFilters(filters);
 
   const query = useQuery(
-    ["INBOX", workflowFilters, searchFilters, ModuleCode, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber],
+    ["INBOX", workflowFilters, searchFilters, ModuleCode, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber, assignee],
     () =>
       InboxGeneral.Search({
-        inbox: { tenantId, processSearchCriteria: workflowFilters, moduleSearchCriteria: { ...searchFilters, sortBy, sortOrder, incidentType, phcType, applicationNumber }, limit, offset },
+        inbox: { tenantId, processSearchCriteria: workflowFilters, moduleSearchCriteria: { ...searchFilters, sortBy, sortOrder, incidentType, phcType, applicationNumber, assignee }, limit, offset },
       }),
     {
       select: (data) => {

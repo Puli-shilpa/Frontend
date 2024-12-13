@@ -9,7 +9,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     const { limit, offset } = searchParams;
     sessionStorage.setItem("limit", JSON.stringify(limit));
     sessionStorage.setItem("offset", JSON.stringify(offset));
-    let appFilters = { ...commonFilters, ...searchParams?.filters?.pgrQuery, ...searchParams?.search, assignee:searchParams?.filters?.wfFilters?.assignee?.[0]?.code, limit, offset };
+    let appFilters = { ...commonFilters, ...searchParams?.filters?.pgrQuery, ...searchParams?.search, limit, offset };
     sessionStorage.setItem("appFilters", JSON.stringify(appFilters));
    let wfFilters
     if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")

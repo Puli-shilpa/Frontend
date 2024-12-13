@@ -504,7 +504,7 @@ useEffect(async () => {
           getFormState={(e) => getData(e)}
           allowedFileTypesRegex={/(jpg|jpeg|png|image)$/i}
           allowedMaxSizeInMB={5}
-          maxFilesAllowed={5}
+          maxFilesAllowed={3}
           disabled={disbaledUpload}
           ulb={Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage.get("Employee.tenantId"  ):healthcentre?.code}
           acceptFiles= {".png, .image, .jpg, .jpeg"}
@@ -529,7 +529,9 @@ useEffect(async () => {
         `}
       </style>
        <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"0px"}}>
+       <div style={{marginRight:"10px"}}>
     <Link to={`/digit-ui/employee`}>{t("CS_COMMON_BACK")}</Link></div> 
+    </div>
     <FormComposer
       heading={t("")}
       config={config}

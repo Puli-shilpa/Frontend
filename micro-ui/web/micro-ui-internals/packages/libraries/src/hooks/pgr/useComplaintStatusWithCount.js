@@ -19,7 +19,7 @@ const useComplaintStatusCount = (complaints,tenant) => {
         enabled: Digit.Utils.pgrAccess(),
       },  
     });
-    useEffect(() => { 
+        useEffect(() => { 
         if(data && data.items){
           const counts=data.statusMap.reduce((acc, item)=>{
               const status=item.applicationstatus;

@@ -85,7 +85,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
       }));
       
     }
-    
+        
    
     return {combinedRes:combinedRes, total:filteredData?.total, statusArray: filteredData?.statusarray};
    

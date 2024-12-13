@@ -69,14 +69,14 @@ const Inbox = () => {
     tenant = searchParams?.search?.phcType
   }
   let isMobile = Digit.Utils.browser.isMobile();
-  let { data: complaints, isLoading } =isMobile? Digit.Hooks.pgr.useInboxData({ ...searchParams }):Digit.Hooks.pgr.useInboxData({ ...searchParams,offset: pageOffset, limit: pageSize }) ;
+  let { data: complaints, isLoading } =isMobile? Digit.Hooks.pgr.useInboxData({ ...searchParams, offset: pageOffset, limit: pageSize  }):Digit.Hooks.pgr.useInboxData({ ...searchParams,offset: pageOffset, limit: pageSize }) ;
   useEffect(()=>{
     if(complaints!==undefined && complaints.combinedRes.length!==0){
       const total=complaints.total
       setTotalRecords(total)
     }
   },[totalRecords, complaints]) 
-  if (complaints?.length !== null) {
+  if (complaints.combinedRes.length>0) {
     if (isMobile) {
       return (
         <MobileInbox data={complaints} isLoading={isLoading} onFilterChange={handleFilterChange} onSearch={onSearch} searchParams={searchParams} />

@@ -13,7 +13,7 @@ const GetSlaCell = (value) => {
 const MobileInbox = ({ data, onFilterChange, onSearch, isLoading, searchParams }) => {
   const { t } = useTranslation();
   console.log("datadatadata",data)
-  const localizedData = data?.map(({ tenantId,phcType, incidentType, incidentId, incidentSubType, sla, status, taskOwner }) => ({
+  const localizedData = data?.combinedRes?.map(({ tenantId,phcType, incidentType, incidentId, incidentSubType, sla, status, taskOwner }) => ({
     [t("CS_COMMON_TICKET_NO")]: incidentId,
     [t("CS_TICKET_TYPE")]: t(`SERVICEDEFS.${incidentType.toUpperCase()}`),
     [t("CS_TICKET_SUB_TYPE")]: t(`SERVICEDEFS.${incidentSubType.toUpperCase()}`),

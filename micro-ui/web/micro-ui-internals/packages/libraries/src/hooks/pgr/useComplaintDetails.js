@@ -46,9 +46,9 @@ const transformDetails = ({ id, incident, workflow, thumbnails, complaintType })
 };
 
 const fetchComplaintDetails = async (tenantIdNew, id) => {
-  
+
   let tenantId = window.location.href.split("/")[9]
-  console.log("servkkkk", tenantId,id)
+    console.log("servkkkk", tenantId,id)
   var serviceDefs = await Digit.MDMSService.getServiceDefs(tenantId, "Incident");
   const {incident, workflow} = (await Digit.PGRService.search(tenantId, {incidentId: window.location.href.split("/")[8] })).IncidentWrappers[0];
   //console.log("service", service)
@@ -61,7 +61,7 @@ const fetchComplaintDetails = async (tenantIdNew, id) => {
     const ids = workflow.verificationDocuments
       ? workflow.verificationDocuments.filter((doc) => doc.documentType === "PHOTO").map((photo) => photo.fileStoreId || photo.id)
       : null;
-    const state = Digit.ULBService.getStateId();
+          const state = Digit.ULBService.getStateId();
     const thumbnails = ids ? await getThumbnails(ids, incident.tenantId) : null;
     const details = transformDetails({ id, incident, workflow, thumbnails, complaintType });
     return details;

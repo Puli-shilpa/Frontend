@@ -232,8 +232,14 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
       
       
       actionSaveOnSubmit={() => {
-        if((selectedAction==="REJECT") && selectedRejectReason===null){
-          setError(t("CS_REJECT_REASON_COMMENTS"))
+        if((selectedAction==="REJECT")) {
+          if(!comments){
+            setError(t("CS_MANDATORY_COMMENTS"))
+          }
+          else if(selectedRejectReason===null){
+            
+            setError(t("CS_REJECT_REASON_COMMENTS"))
+          }
         }
        else if((selectedAction==="SENDBACK") && !comments){
             setError(t("CS_MANDATORY_COMMENTS"));

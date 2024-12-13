@@ -21,6 +21,22 @@ export const filterFunctions = {
       //   searchFilters.fetchNonActionableRecords = true;
       // }
     }
+
+    if(incidentType){
+      let convertIncidentType=[incidentType];
+      if(incidentType.includes(",")){
+        convertIncidentType=incidentType.split(',')
+      }
+      searchFilters.incidentType=convertIncidentType;
+    }
+
+    if(phcType){
+      let convertPhcType=[phcType];
+      if(phcType.includes(",")){
+        convertPhcType=phcType.split(',');
+      }
+      searchFilters.phcType=convertPhcType;
+    }
     
     if (filtersArg?.uuid && filtersArg?.uuid.code === "ASSIGNED_TO_ME") {
       workflowFilters.assignee = uuid;
@@ -46,6 +62,6 @@ export const filterFunctions = {
 
     // workflowFilters.businessService = "PT.CREATE";
     // searchFilters.mobileNumber = "9898568989";
-    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, incidentType, phcType, applicationNumber, assignee };
+    return { searchFilters, workflowFilters, limit, offset, sortBy, sortOrder, applicationNumber, assignee};
   },
 };

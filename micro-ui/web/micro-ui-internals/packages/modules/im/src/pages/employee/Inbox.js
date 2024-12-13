@@ -76,7 +76,7 @@ const Inbox = () => {
       setTotalRecords(total)
     }
   },[totalRecords, complaints]) 
-  if (complaints.combinedRes.length>0) {
+  if (complaints.length!==null) {
     if (isMobile) {
       return (
         <MobileInbox data={complaints} isLoading={isLoading} onFilterChange={handleFilterChange} onSearch={onSearch} searchParams={searchParams} />

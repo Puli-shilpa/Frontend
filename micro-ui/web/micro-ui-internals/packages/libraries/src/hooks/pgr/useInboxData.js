@@ -19,6 +19,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     else {
       wfFilters = { ...commonFilters, ...searchParams?.filters?.wfQuery}
     }
+    const { assignee }=wfFilters;
     const filterData=(data, appFilters)=>{
       //const {phcType, incidentType, incidentId, applicationStatus, start, limit, offset, end}=appFilters;
       const filteredItems= data.data.items;
@@ -33,7 +34,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
   const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
     tenantId: Digit.ULBService.getCurrentTenantId(),
     ModuleCode: "Incident",
-    filters: {  ...appFilters, ...wfFilters, sortOrder: "DESC", services: ["Incident"] },
+    filters: {  ...appFilters, assignee, sortOrder: "DESC", services: ["Incident"] },
     config: {
       select: (data) => {
         return {data: data} || "-";

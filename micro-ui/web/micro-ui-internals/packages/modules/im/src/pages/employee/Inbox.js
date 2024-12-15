@@ -35,13 +35,10 @@ const Inbox = () => {
         tenantId = codes
       }
 
-      console.log("searchParamssearchParamsNew",searchParams,userRoles,tenantId)
-
-      let response = await Digit.PGRService.count(tenantId, applicationStatus?.length > 0  ? {applicationStatus} : {} );
-      console.log("STEP6",response,searchParams?.filters?.pgrQuery?.phcType,tenantId)
-      if (response?.count) {
-        setTotalRecords(response.count);
-      }
+      //let response = await Digit.PGRService.count(tenantId, applicationStatus?.length > 0  ? {applicationStatus} : {} );
+      // if (response?.count) {
+      //   setTotalRecords(response.count);
+      // }
     })();
   }, [searchParams]);
 
@@ -62,25 +59,24 @@ const Inbox = () => {
   };
 
   const onSearch = (params = "") => {
-    console.log("paramsparams",params,searchParams)
     setSearchParams({ ...searchParams, search: params });
   };
 
   // let complaints = Digit.Hooks.pgr.useInboxData(searchParams) || [];
-  console.log("searchParamssearchParams",searchParams)
   let tenant=""
   if(searchParams?.search?.phcType)
   {
     tenant = searchParams?.search?.phcType
   }
   let isMobile = Digit.Utils.browser.isMobile();
-  console.log("tenant",tenant)
-  let { data: complaints, isLoading } =isMobile? Digit.Hooks.pgr.useInboxData({ ...searchParams }):Digit.Hooks.pgr.useInboxData({ ...searchParams,offset: pageOffset, limit: pageSize }) ;
-  console.log("complai", complaints)
-
-
-console.log("totalRecords",totalRecords)
-  if (complaints?.length !== null) {
+  let { data: complaints, isLoading } =isMobile? Digit.Hooks.pgr.useInboxData({ ...searchParams, offset: pageOffset, limit: pageSize  }):Digit.Hooks.pgr.useInboxData({ ...searchParams,offset: pageOffset, limit: pageSize }) ;
+  useEffect(()=>{
+    if(complaints!==undefined && complaints.combinedRes.length!==0){
+      const total=complaints.total
+      setTotalRecords(total)
+    }
+  },[totalRecords, complaints]) 
+  if (complaints.length!==null) {
     if (isMobile) {
       return (
         <MobileInbox data={complaints} isLoading={isLoading} onFilterChange={handleFilterChange} onSearch={onSearch} searchParams={searchParams} />

@@ -14,7 +14,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
    let wfFilters
     if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")
     {
-     wfFilters = { ...commonFilters, ...searchParams?.filters?.wfQuery,assignee:searchParams?.filters?.wfFilters?.assignee?.[0]?.code}
+     wfFilters = { ...commonFilters, ...searchParams?.filters?.wfQuery}
     }
     else {
       wfFilters = { ...commonFilters, ...searchParams?.filters?.wfQuery}

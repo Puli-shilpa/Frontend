@@ -25,9 +25,8 @@ const isCodePresent = (array, codeToCheck) =>{
   return array.some(item => item.code === codeToCheck);
 }
 console.log("vvvvv",isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER"))
-  const [selectAssigned, setSelectedAssigned] = useState(isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? assignedToOptions[0] : assignedToOptions[1]);
-
-  useEffect(() => setSelectedAssigned(isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? assignedToOptions[0] : assignedToOptions[1]), [t]);
+  const [selectAssigned, setSelectedAssigned] = useState(assignedToOptions[1]);
+  useEffect(() => setSelectedAssigned(assignedToOptions[1]), [t]);
 
   const [selectedComplaintType, setSelectedComplaintType] = useState(null);
   const [selectedHealthCare, setSelectedHealthCare] = useState(null);
@@ -41,15 +40,8 @@ console.log("vvvvv",isCodePresent(Digit.SessionStorage.get("User")?.info?.roles,
   );
   let healthcareTenant = Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
 
-  const [wfFilters, setWfFilters] = useState(
-    isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? searchParams?.filters?.wfFilters:searchParams?.filters?.wfFilters?.["assignee"]?.[{"code":""}] || isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? {
-      assignee: [{ code: uuid }],
-    }
-    :
-    {
-      assignee: [{ code: "" }],
-    }
-  );
+  const [wfFilters, setWfFilters] = useState(uuid ? uuid : "");
+  
   
   const tenantId = Digit.ULBService.getCurrentTenantId();
   // let localities = Digit.Hooks.pgr.useLocalities({ city: tenantId });

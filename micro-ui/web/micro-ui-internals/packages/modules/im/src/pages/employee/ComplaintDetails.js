@@ -232,9 +232,11 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
       
       
       actionSaveOnSubmit={() => {
-       
-        if((selectedAction==="REJECT") && (!comments || !selectedRejectReason)) {
-           setError("CS_MANDATORY_COMMENTS_AND_REJECT_REASON")
+        if(selectedAction==="REJECT" && !selectedRejectReason){
+          setError(t("CS_MANDATORY_REJECT_REASON"))
+        }
+        else if(selectedAction==="REJECT" && !comments){
+          setError(t("CS_MANDATORY_COMMENTS"));
         }
        else if((selectedAction==="SENDBACK") && !comments){
             setError(t("CS_MANDATORY_COMMENTS"));
@@ -245,8 +247,11 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
         else if(selectedAction==="ASSIGN" && selectedEmployee===null){
            setError(t("CS_ASSIGNEE_MANDATORY"))
         }
-        else if(selectedAction==="RESOLVE" && (!comments || uploadedFile.length===0) ){
-          setError(t("CS_MANDATORY_COMMENTS_AND_FILE_UPLOAD"));
+        else if(selectedAction==="RESOLVE" && !comments){
+          setError(t("CS_MANDATORY_COMMENTS"));
+        }
+        else if(selectedAction==="RESOLVE" && uploadedFile.length===0) {
+          setError(t("CS_MANDATORY_FILE_UPLOAD"));
         }
         else{
           

@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "react-query";
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, {useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 const useInboxData = (searchParams,tenantIdNew) => {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
       //const paginationItems=filteredItems.slice(limit, offset+limit); 
       return {total: totalItems, items:filteredItems, statusarray: statusArray};
     };
-  const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
+  const { data, isLoading, isFetching, isSuccess, refetch } = Digit.Hooks.useNewInboxGeneral({
     tenantId: Digit.ULBService.getCurrentTenantId(),
     ModuleCode: "Incident",
     filters: {  ...appFilters, assignee, sortOrder: "DESC", services: ["Incident"] },
@@ -45,8 +45,15 @@ const useInboxData = (searchParams,tenantIdNew) => {
     
   });
   const filteredData= isSuccess && data ? filterData(data, appFilters) : {total:0, items:[], statusArray:[]};
-  
   const client = useQueryClient();
+  const prevSearchParams = useRef(searchParams);
+  useEffect(() => {
+    if (JSON.stringify(searchParams) !== JSON.stringify(prevSearchParams.current)) {
+      refetch(); 
+      prevSearchParams.current = searchParams; 
+    }
+  }, [searchParams, refetch]);
+
   const fetchInboxData =  () => {
     let tenantId = Digit.ULBService.getCurrentTenantId();
     const tenants = Digit.SessionStorage.get("Tenants").map(item => item.code).join(',');

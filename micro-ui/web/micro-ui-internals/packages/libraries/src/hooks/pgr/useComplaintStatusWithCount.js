@@ -11,7 +11,7 @@ const useComplaintStatusCount = (complaints,tenant) => {
     const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
       tenantId: Digit.ULBService.getCurrentTenantId(),
       ModuleCode: "Incident",
-      filters: { limit: limit, offset: offset,sortOrder: "DESC", services: ["Incident"]},
+      filters: { ...appFilters, limit: limit, offset: offset,sortOrder: "DESC", services: ["Incident"]},
       config: {
         select: (data) => {
           return data;

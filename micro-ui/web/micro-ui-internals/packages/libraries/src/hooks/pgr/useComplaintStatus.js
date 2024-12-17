@@ -5,6 +5,22 @@ const useComplaintStatus = () => {
   const { t } = useTranslation();
   const [complaintStatus, setComplaintStatus] = useState([]);
   const tenantId = Digit.ULBService.getCurrentTenantId();
+  let assignee="";
+  const appFilters=JSON.parse(sessionStorage.getItem("appFilters"));
+ // const { limit, offset }=appFilters;
+  const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
+    tenantId: Digit.ULBService.getCurrentTenantId(),
+    ModuleCode: "Incident",
+    filters: { limit: 10, offset: 0, services: ["Incident"] },
+    config: {
+      select: (data) => {
+        return {data:data};
+      },
+      enabled: Digit.Utils.pgrAccess(),
+    },
+    
+    
+  });
 
   useEffect(() => {
     let WorkflowService = null;
@@ -16,15 +32,15 @@ const useComplaintStatus = () => {
       //     ? Digit.SessionStorage.get("Employee.tenantId")
       //     : Digit.SessionStorage.get("Citizen.tenantId");
       WorkflowService = await Digit.WorkflowService.init(tenantId, "Incident");
-      let applicationStatus = WorkflowService.BusinessServices[0].states
-        .filter((state) => state.applicationStatus)
+      
+      let applicationStatus = data!==undefined ? data.data.statusMap.filter((state) => state.applicationstatus)
         .map((state) => ({
-          name: t(`CS_COMMON_${state.applicationStatus}`),
-          code: state.applicationStatus,
-        }));
+          name: t(`CS_COMMON_${state.applicationstatus}`),
+          code: state.applicationstatus,
+        })):"";
       setComplaintStatus(applicationStatus);
     })();
-  }, [t, tenantId]);
+  }, [data, t, tenantId]);
 
   return complaintStatus;
 };

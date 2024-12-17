@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "react-query";
-
+import React,{useEffect,useState} from "react";
 import { filterFunctions } from "./newFilterFn";
 import { getSearchFields } from "./searchFields";
 import { InboxGeneral } from "../../services/elements/InboxService";
@@ -35,13 +35,17 @@ const callMiddlewares = async (data, middlewares) => {
 };
 
 const useNewInboxGeneral = ({ tenantId, ModuleCode, filters, middleware = [], config = {} }) => {
+const [trigger, setTrigger] = useState(Date.now());
   const client = useQueryClient();
   const { t } = useTranslation();
   const { fetchFilters, searchResponseKey, businessIdAliasForSearch, businessIdsParamForSearch } = inboxConfig()[ModuleCode];
-  let { workflowFilters, searchFilters, limit, offset, sortBy, sortOrder,  applicationNumber, assignee} = fetchFilters(filters);
-
+  let { workflowFilters, searchFilters, limit, offset, sortBy, sortOrder, applicationNumber, assignee} = fetchFilters(filters);
+  useEffect(()=>{
+   console.log("ddddfffuseNewInboxGeneral")
+   setTrigger(Date.now()); 
+  },[])
   const query = useQuery(
-    ["INBOX", workflowFilters, searchFilters, ModuleCode, limit, offset, sortBy, sortOrder, applicationNumber, assignee],
+    ["INBOX", workflowFilters, searchFilters, ModuleCode, limit, offset, sortBy, sortOrder, applicationNumber, assignee,trigger],
     () =>
       InboxGeneral.Search({
         inbox: { tenantId, processSearchCriteria: workflowFilters, moduleSearchCriteria: { ...searchFilters, sortBy, sortOrder,  applicationNumber, assignee }, limit, offset },
@@ -49,13 +53,6 @@ const useNewInboxGeneral = ({ tenantId, ModuleCode, filters, middleware = [], co
     {
       select: (data) => {
         const { statusMap, totalCount } = data;
-        // client.setQueryData(`INBOX_STATUS_MAP_${ModuleCode}`, (oldStatusMap) => {
-        //   if (!oldStatusMap) return statusMap;
-        //   else return [...oldStatusMap.filter((e) => statusMap.some((f) => f.stateId === e.stateId))];
-        // });
-
-        client.setQueryData(`INBOX_STATUS_MAP_${ModuleCode}`, statusMap);
-        
         if (data.items.length) {
           return data.items?.map((obj) => ({
            
@@ -67,7 +64,7 @@ const useNewInboxGeneral = ({ tenantId, ModuleCode, filters, middleware = [], co
           return [{ statusMap, totalCount, dataEmpty: true }];
         }
       },
-      retry: false,
+      retry: true,
       ...config,
     }
   );

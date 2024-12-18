@@ -3,6 +3,7 @@ FROM ghcr.io/egovernments/alpine-node-builder-14:yarn AS build
 RUN apk update && apk upgrade
 
 RUN apk add --no-cache git>2.30.0
+
 RUN yarn add @egovernments/digit-ui-libraries
 RUN yarn add @egovernments/digit-ui-module-core
 RUN yarn add @egovernments/digit-ui-module-common
@@ -10,7 +11,6 @@ RUN yarn add @selco/digit-ui-module-hrms
 RUN yarn add @selco/digit-ui-module-pgr
 RUN yarn add @selco/digit-ui-module-dss
 
-#RUN yarn add @selco/digit-ui-core
 
 ARG WORK_DIR
 

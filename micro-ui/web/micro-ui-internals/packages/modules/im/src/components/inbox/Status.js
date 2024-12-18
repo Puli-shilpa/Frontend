@@ -2,8 +2,8 @@ import React from "react";
 import { CheckBox, Loader } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
-const Status = ({ complaints, onAssignmentChange, pgrfilters }) => {
-  console.log("pgrfilterspgrfilters",pgrfilters)
+const Status = ({ complaints, onAssignmentChange, pgrfilters, statusArray }) => {
+  
   const { t } = useTranslation();
   let tenant = Digit.ULBService.getCurrentTenantId();
   const isCodePresent = (array, codeToCheck) =>{
@@ -13,7 +13,7 @@ const Status = ({ complaints, onAssignmentChange, pgrfilters }) => {
   if(pgrfilters?.phcType.length >0)
   {
      tenant = pgrfilters?.phcType.map((ulb)=> {return ulb.code}).join(",")
-    console.log("tenanttenant",tenant)
+    
   }
   else if (isCodePresent(userRoles, "COMPLAINT_RESOLVER") && (pgrfilters?.phcType.length ==0) && Digit.SessionStorage.get("Employee.tenantId") == "pg")
   {
@@ -21,11 +21,11 @@ const Status = ({ complaints, onAssignmentChange, pgrfilters }) => {
     .map(item => item.code)
     .join(',');
     tenant = codes
-    console.log("tenanttenant11",tenant,Digit.SessionStorage.get("Employee.tenantId"))
+
   }
   const complaintsWithCount =Digit.Hooks.pgr.useComplaintStatusCount(complaints,tenant);
   
-  console.log("complaintcount", complaintsWithCount)
+  
   let hasFilters = pgrfilters?.applicationStatus?.length;
   return (
     <div className="status-container">

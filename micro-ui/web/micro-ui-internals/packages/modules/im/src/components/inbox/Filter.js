@@ -25,14 +25,12 @@ const isCodePresent = (array, codeToCheck) =>{
   return array.some(item => item.code === codeToCheck);
 }
 console.log("vvvvv",isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER"))
-  const [selectAssigned, setSelectedAssigned] = useState(isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? assignedToOptions[0] : assignedToOptions[1]);
-
-  useEffect(() => setSelectedAssigned(isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? assignedToOptions[0] : assignedToOptions[1]), [t]);
+  const [selectAssigned, setSelectedAssigned] = useState(assignedToOptions[1]);
+  useEffect(() => setSelectedAssigned(assignedToOptions[1]), [t]);
 
   const [selectedComplaintType, setSelectedComplaintType] = useState(null);
   const [selectedHealthCare, setSelectedHealthCare] = useState(null);
-  console.log("hc", selectedHealthCare)
-  console.log("selecCom", selectedComplaintType)
+  
   const [pgrfilters, setPgrFilters] = useState(
     searchParams?.filters?.pgrfilters || {
       incidentType: [],
@@ -42,20 +40,13 @@ console.log("vvvvv",isCodePresent(Digit.SessionStorage.get("User")?.info?.roles,
   );
   let healthcareTenant = Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
 
-  const [wfFilters, setWfFilters] = useState(
-    isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? searchParams?.filters?.wfFilters:searchParams?.filters?.wfFilters?.["assignee"]?.[{"code":""}] || isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER") ? {
-      assignee: [{ code: uuid }],
-    }
-    :
-    {
-      assignee: [{ code: "" }],
-    }
-  );
-  console.log("DIGIT",searchParams)
+  const [wfFilters, setWfFilters] = useState(uuid ? uuid : "");
+  
+  
   const tenantId = Digit.ULBService.getCurrentTenantId();
   // let localities = Digit.Hooks.pgr.useLocalities({ city: tenantId });
   const { data: localities } = Digit.Hooks.useBoundaryLocalities(tenantId, "admin", {}, t);
-  console.log("tenantIdtenantIdtenantIdtenantId")
+  
   let serviceDefs = Digit.Hooks.pgr.useServiceDefs(tenantId, "Incident");
   const menu = Digit.Hooks.pgr.useComplaintTypes({ stateCode: tenantId })
   let sortedMenu=[];
@@ -68,7 +59,7 @@ console.log("vvvvv",isCodePresent(Digit.SessionStorage.get("User")?.info?.roles,
     }
     sortedMenu = remainingOptions
   }
-  console.log("sorted", sortedMenu)
+  
   const state = Digit.ULBService.getStateId();
 //   const { isMdmsLoading, data: mdmsData } = Digit.Hooks.pgr.useMDMS(state, "Incident", ["District","Block"]);
 // const {  data: phcMenu  } = Digit.Hooks.pgr.useMDMS(state, "tenant", ["tenants"]);
@@ -79,6 +70,7 @@ const convertedData = Digit.SessionStorage.get("IM_TENANTS").map(item => ({
 const healthcareMenu=Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage.get("Tenants") : Digit.SessionStorage.get("Employee.tenantId") == "pg" ? isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER")?  healthcareTenant: Digit.SessionStorage.get("IM_TENANTS").filter((item) => item.code !=="pg"): Digit.SessionStorage.get("IM_TENANTS").filter((item) => item.code !=="pg")
 const translatedPhcMenu=healthcareMenu.map(item=>({
   ...item,
+  code: t(item?.name),
   name:t(item?.name),
   centreType:t(item?.centreType)
 }))
@@ -134,7 +126,7 @@ if(translatedPhcMenu.length>0){
     props.onClose();
   }
   function complaintType(_type) {
-    console.log("typeeee", _type)
+    
     const type = { code: _type.key, name: _type.name };
     if (!ifExists(pgrfilters.incidentType, type)) {
       setPgrFilters({ ...pgrfilters, incidentType: [...pgrfilters.incidentType, type] });
@@ -146,7 +138,7 @@ if(translatedPhcMenu.length>0){
       setPgrFilters({ ...pgrfilters, phcType: [...pgrfilters.phcType, value] });
     }
   }
-console.log("pgrfilters", pgrfilters)
+
   useEffect(() => {
     if (pgrfilters.incidentType.length > 1) {
       setSelectedComplaintType({ i18nKey: `${pgrfilters.incidentType.length} selected` });
@@ -169,7 +161,6 @@ console.log("pgrfilters", pgrfilters)
     });
     setPgrFilters({ ...pgrfilters, [key]: afterRemove });
   };
-
   const handleAssignmentChange = (e, type) => {
     if (e.target.checked) {
       setPgrFilters({ ...pgrfilters, applicationStatus: [...pgrfilters.applicationStatus, { code: type.code }] });
@@ -199,7 +190,7 @@ console.log("pgrfilters", pgrfilters)
 
   const GetSelectOptions = (lable, options, selected = null, select, optionKey, onRemove, key) => {
     selected = selected || { [optionKey]: " ", code: "" };
-    console.log("optionsoptionsoptions",options)
+   
     return (
       <div>
         <div className="filter-label">{lable}</div>

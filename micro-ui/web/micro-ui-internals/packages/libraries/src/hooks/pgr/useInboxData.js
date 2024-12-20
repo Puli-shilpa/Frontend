@@ -11,6 +11,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     sessionStorage.setItem("offset", JSON.stringify(offset));
     let appFilters = { ...commonFilters, ...searchParams?.filters?.pgrQuery, ...searchParams?.search, limit, offset };
     sessionStorage.setItem("appFilters", JSON.stringify(appFilters));
+    sessionStorage.setItem("searchParams", JSON.stringify(searchParams));
    let wfFilters
     if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")
     {

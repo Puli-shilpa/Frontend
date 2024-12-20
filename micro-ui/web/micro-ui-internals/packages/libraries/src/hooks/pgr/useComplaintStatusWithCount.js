@@ -7,11 +7,21 @@ const useComplaintStatusCount = (complaints,tenant) => {
   let tenantId = Digit.ULBService.getCurrentTenantId();
   const [statusCount, setStatusCount]=useState();
   const appFilters=JSON.parse(sessionStorage.getItem("appFilters"));
+  const searchParams=JSON.parse(sessionStorage.getItem("searchParams"));
+  let wfFilters
+    if(searchParams?.filters?.wfFilters?.assignee?.[0]?.code !=="")
+    {
+      wfFilters = { ...searchParams?.filters?.wfQuery,assignee:searchParams?.filters?.wfFilters?.assignee?.[0]?.code}
+    }
+    else {
+      wfFilters = { ...searchParams?.filters?.wfQuery}
+    }
+    const { assignee }=wfFilters;
   const { limit, offset, incidentType, phcType, applicationStatus }=appFilters;
     const { data, isLoading, isFetching, isSuccess } = Digit.Hooks.useNewInboxGeneral({
       tenantId: Digit.ULBService.getCurrentTenantId(),
       ModuleCode: "Incident",
-      filters: { ...appFilters, limit: limit, offset: offset,sortOrder: "DESC", services: ["Incident"]},
+      filters: { ...appFilters, assignee, limit: limit, offset: offset,sortOrder: "DESC", services: ["Incident"]},
       config: {
         select: (data) => {
           return data;

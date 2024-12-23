@@ -41,6 +41,9 @@ const Inbox = () => {
       // }
     })();
   }, [searchParams]);
+  useEffect(() => {
+    setPageOffset(0);
+  }, [searchParams]);
 
   const fetchNextPage = () => {
     setPageOffset((prevState) => prevState + 10);
@@ -86,7 +89,7 @@ const Inbox = () => {
         <div>
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
           <Header>{t("ES_COMMON_INBOX")}</Header>
-          <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"0px"}}>
+          <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"15px"}}>
               <Link to={`/digit-ui/employee`}>{t("CS_COMMON_BACK")}</Link>
           </div> 
           </div>

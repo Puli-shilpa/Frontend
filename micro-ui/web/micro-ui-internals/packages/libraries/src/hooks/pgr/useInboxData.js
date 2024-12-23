@@ -90,7 +90,7 @@ const useInboxData = (searchParams,tenantIdNew) => {
     if (workflowInstances.length>0) {
       combinedRes = combineResponses(incidentDetails, workflowInstances).map((data) => ({
         ...data,
-        sla: Math.round(data.sla / (24 * 60 * 60 * 1000)),
+        sla: data.sla!=="-" ? Math.round(data.sla / (24 * 60 * 60 * 1000)) : "-",
       }));
       
     }
@@ -114,6 +114,7 @@ const mapWfBybusinessId = (wfs) => {
 const combineResponses = (incidentDetails, workflowInstances) => {
   let wfMap = mapWfBybusinessId(workflowInstances);
   let data = [];
+  const currentTime=Date.now();
   incidentDetails.map((incident) => {
     if (wfMap?.[incident.incidentId]) {
       data.push({
@@ -125,7 +126,7 @@ const combineResponses = (incidentDetails, workflowInstances) => {
         //locality: complaint.service.address.locality.code,
         status: incident.applicationStatus,
         taskOwner: wfMap[incident.incidentId]?.assignes?.[0]?.name || "-",
-        sla: wfMap[incident.incidentId]?.businesssServiceSla,
+        sla: incident.applicationStatus==="RESOLVED" ? "-" : wfMap[incident.incidentId]?.businesssServiceSla+wfMap[incident.incidentId]?.auditDetails?.createdTime-currentTime,
         tenantId: incident.tenantId,
       })
     }});

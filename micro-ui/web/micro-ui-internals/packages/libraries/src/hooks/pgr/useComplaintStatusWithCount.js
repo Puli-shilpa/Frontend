@@ -40,6 +40,9 @@ const useComplaintStatusCount = (complaints,tenant) => {
             },{});
             setStatusCount(counts);
         }
+        else{
+          setStatusCount("-")
+        }
       }, [data]);
   useEffect(() => {
     const getStatusWithCount = async () => {

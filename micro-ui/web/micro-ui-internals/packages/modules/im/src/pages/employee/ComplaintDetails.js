@@ -319,16 +319,19 @@ export const ComplaintDetails = (props) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [imageZoom, setImageZoom] = useState(null);
   const mobileDeviceWidth = 780;
-  const [isMobileView, setIsMobileView] = React.useState(window.innerWidth <= mobileDeviceWidth);
+  const iPadMaxWidth=1024;
+  const iPadMinWidth=768
+  const isMobile = window.Digit.Utils.browser.isMobile();
+  const [isIpadView, setIsIpadView] = React.useState(window.innerWidth <= iPadMaxWidth && window.innerWidth>=iPadMinWidth);
   const onResize = () => {
-    if (window.innerWidth <= mobileDeviceWidth) {
-      if (!isMobileView) {
-        setIsMobileView(true);
+    
+      if (window.innerWidth <= iPadMaxWidth && window.innerWidth>=iPadMinWidth) {
+        setIsIpadView(true);
       }
-    } else {
-      if (isMobileView) {
-        setIsMobileView(false);
-      }
+    else {
+      
+        setIsIpadView(false);
+      
     }
   };
   React.useEffect(() => {
@@ -340,7 +343,7 @@ export const ComplaintDetails = (props) => {
         onResize();
       });
     };
-  });
+  }, []);
   // const [actionCalled, setActionCalled] = useState(false);
   const [toast, setToast] = useState(false);
   const tenantId = Digit.ULBService.getCurrentTenantId();
@@ -621,13 +624,13 @@ export const ComplaintDetails = (props) => {
   }
 return (
   <React.Fragment>
-     <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"0px"}}>
+     <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"15px"}}>
     <Link to={`/digit-ui/employee/im/inbox`}>{t("CS_COMMON_BACK")}</Link></div> 
     <Card>
       
       <div style={{display:"flex", flexDirection:"column", gap:"5px"}}>
       <CardSubHeader>{t(`CS_HEADER_INCIDENT_SUMMARY`)}</CardSubHeader>
-      <div style={{fontWeight:"bolder", fontSize: isMobileView ? "16px":"21px", marginTop: isMobileView? "20px": -20, marginBottom:"22px"}}>{t("CS_HEADER_TICKET_DETAILS")}</div>
+      <div style={{fontWeight:"bolder", fontSize: isMobile ? "16px":"21px", marginTop: isMobile || isIpadView? "20px": -20, marginBottom:"22px"}}>{t("CS_HEADER_TICKET_DETAILS")}</div>
       </div>
       
 
@@ -716,7 +719,7 @@ return (
     ) : null}
     {toast && <Toast label={t(assignResponse ? `CS_ACTION_${selectedAction}_TEXT` : "CS_ACTION_ASSIGN_FAILED")} onClose={closeToast} />}
     {!workflowDetails?.isLoading && workflowDetails?.data?.nextActions?.length > 0 && (
-      <ActionBar>
+      <ActionBar style={{marginLeft: isIpadView? "250px":"none"}}>
         {displayMenu && workflowDetails?.data?.nextActions ? (
           <Menu options={workflowDetails?.data?.nextActions.map((action) => action.action)} t={t} onSelect={onActionSelect} />
         ) : null}

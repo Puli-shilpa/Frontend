@@ -533,7 +533,7 @@ useEffect(async () => {
         `}
       </style>
        <div style={{color:"#9e1b32", marginBottom:'10px', textAlign:"right", marginRight:"0px"}}>
-       <div style={{marginRight:"10px"}}>
+       <div style={{marginRight:"15px"}}>
     <Link to={`/digit-ui/employee`}>{t("CS_COMMON_BACK")}</Link></div> 
     </div>
     <FormComposer

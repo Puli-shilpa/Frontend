@@ -116,7 +116,13 @@ export const Complaint = {
     // };
     //console.log("assignassign",complaintDetails)
     //TODO: get tenant id
-    const response = await Digit.PGRService.update(complaintDetails, tenantId);
+    let response;
+    try {
+      response = await Digit.PGRService.update(complaintDetails, tenantId);
+      //return response;
+    } catch (error) {
+      response=error?.response?.data?.Errors;
+    } 
     return response;
   },
 };

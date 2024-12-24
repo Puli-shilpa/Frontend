@@ -346,6 +346,8 @@ export const ComplaintDetails = (props) => {
   }, []);
   // const [actionCalled, setActionCalled] = useState(false);
   const [toast, setToast] = useState(false);
+  const [error, setError]=useState("");
+  //console.log("error111", error)
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const tenant =  Digit.SessionStorage.get("Employee.tenantId") == "pg"?  Digit.SessionStorage.get("IM_TENANTS").map(item => item.code).join(',') :Digit.SessionStorage.get("Employee.tenantId") 
 
@@ -398,6 +400,9 @@ export const ComplaintDetails = (props) => {
     setDisplayMenu(false);
     setPopup(true);
   }
+  useEffect(()=>{
+    setTimeout(() => setError(""), 10000);
+  })
 
   useEffect(() => {
     (async () => {
@@ -491,7 +496,13 @@ export const ComplaintDetails = (props) => {
   async function onAssign(selectedEmployee, comments, uploadedFile, selectedReopenReason, selectedRejectReason) {
     setPopup(false);
     const response = await Digit.Complaint.assign(complaintDetails, selectedAction, selectedEmployee, comments, uploadedFile, tenant, selectedReopenReason, selectedRejectReason);
-    setAssignResponse(response);
+    if(response?.IncidentWrappers){
+      setAssignResponse(response);
+    }else{
+      setError(response)
+      //setTimeout(() => setError(false), 10000);
+    }
+    
     setToast(true);
     setLoader(true);
     await refreshData();
@@ -717,7 +728,7 @@ return (
         t={t}
       />
     ) : null}
-    {toast && <Toast label={t(assignResponse ? `CS_ACTION_${selectedAction}_TEXT` : "CS_ACTION_ASSIGN_FAILED")} onClose={closeToast} />}
+    {toast && assignResponse && assignResponse?.IncidentWrappers && <Toast label={t(`CS_ACTION_${selectedAction}_TEXT`)} onClose={closeToast} /> }
     {!workflowDetails?.isLoading && workflowDetails?.data?.nextActions?.length > 0 && (
       <ActionBar style={{marginLeft: isIpadView? "250px":"none"}}>
         {displayMenu && workflowDetails?.data?.nextActions ? (
@@ -726,6 +737,9 @@ return (
         <SubmitBar label={t("WF_TAKE_ACTION")} onSubmit={() => setDisplayMenu(!displayMenu)} />
       </ActionBar>
     )}
+    {
+      error && error[0].message && <Toast error={error[0].message} label={error[0].message} onClose={closeToast}/>
+    }
   </React.Fragment>
 );
 };

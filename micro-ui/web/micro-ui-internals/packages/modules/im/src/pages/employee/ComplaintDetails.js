@@ -126,11 +126,11 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
 
   function addComment(e) { 
     if(e.target.value.length>256){
-      setError(t("CS_COMMENT_LENGTH_LIMIT_EXCEED"))
+      setError(t("CS_COMMENT_LENGTH_LIMIT_EXCEED77"))
     }
-    else if(!/^[a-zA-Z0-9\s./,]*$/.test(e.target.value)){
-      setError(t("CS_COMMENT_INVALID_CHARACTERS"))
-    }
+    // else if(!/^[a-zA-Z0-9\s./,]*$/.test(e.target.value)){
+    //   setError(t("CS_COMMENT_INVALID_CHARACTERS"))
+    // }
     else{
       setError(null);
       setComments(e.target.value);

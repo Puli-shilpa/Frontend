@@ -490,8 +490,10 @@ useEffect(async () => {
           isMandatory:false,
           populators: {
             name: "comments",
+           // maxLength: 256,
             validation : {
-              pattern:/^[a-zA-Z0-9 ,.]{0,256}$/
+              minLength: 0,
+              maxLength:256,
             },
             error: t("CS_LENGTH_EXCEED")
             

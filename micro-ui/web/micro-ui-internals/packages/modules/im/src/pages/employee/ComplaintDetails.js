@@ -354,6 +354,14 @@ export const ComplaintDetails = (props) => {
   const { isLoading, complaintDetails, revalidate: revalidateComplaintDetails } = Digit.Hooks.pgr.useComplaintDetails({ tenant, id });
 
   const workflowDetails = Digit.Hooks.useWorkflowDetails({ tenant : id.split("/")[1], id :id.split("/")[0] , moduleCode: "Incident", role: "EMPLOYEE" });
+  let currentOwner='';
+  let currentLoginUser = JSON.parse(sessionStorage.getItem("Digit.User"))?.value?.info?.uuid;
+  if(workflowDetails && workflowDetails?.data &&  workflowDetails?.data?.processInstances && workflowDetails?.data?.processInstances[0]?.assignes && workflowDetails?.data?.processInstances[0]?.assignes[0] ){
+    currentOwner=workflowDetails?.data?.processInstances[0]?.assignes[0]?.uuid;
+  }
+  else{
+    currentOwner=currentLoginUser;
+  }
 
   const [imagesToShowBelowComplaintDetails, setImagesToShowBelowComplaintDetails] = useState([])
 
@@ -729,7 +737,7 @@ return (
       />
     ) : null}
     {toast && assignResponse && assignResponse?.IncidentWrappers && <Toast label={t(`CS_ACTION_${selectedAction}_TEXT`)} onClose={closeToast} /> }
-    {!workflowDetails?.isLoading && workflowDetails?.data?.nextActions?.length > 0 && (
+    {!workflowDetails?.isLoading && workflowDetails?.data?.nextActions?.length > 0 && currentOwner===currentLoginUser && (
       <ActionBar style={{marginLeft: isIpadView? "250px":"none"}}>
         {displayMenu && workflowDetails?.data?.nextActions ? (
           <Menu options={workflowDetails?.data?.nextActions.map((action) => action.action)} t={t} onSelect={onActionSelect} />

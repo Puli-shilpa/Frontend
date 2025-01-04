@@ -15,7 +15,7 @@ const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage
           }
         `}
       </style>
-
+<div style={{overflowX:"scroll"}}>
   <Table
     t={t}
     data={data}
@@ -28,6 +28,7 @@ const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage
     onPageSizeChange={onPageSizeChange}
     pageSizeLimit={pageSizeLimit}
   />
+  </div>
    </div>
 );
 console.log("jhisss", ComplaintTable)

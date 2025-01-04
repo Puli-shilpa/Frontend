@@ -163,14 +163,14 @@ const DesktopInbox = ({
   }
 
   return (
-    <div className="inbox-container" style={{overflowX: "scroll"}}>
+    <div className="inbox-container">
       <div className="filters-container">
         <ComplaintsLink />
         <div style={{paddingTop:"5px", paddingBottom:"0px"}}>
           <Filter complaints={data} onFilterChange={onFilterChange} type="desktop" searchParams={searchParams} />
         </div>
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, overflowX:"scroll", width:"100%" }}>
         <SearchComplaint onSearch={onSearch} type="desktop" />
         <div style={{ marginTop: "21px", marginLeft:"24px", flex: 1 }}>{result}</div>
       </div>

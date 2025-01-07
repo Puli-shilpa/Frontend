@@ -57,10 +57,10 @@ const useInboxData = (searchParams,tenantIdNew) => {
 
   const fetchInboxData =  () => {
     let tenantId = Digit.ULBService.getCurrentTenantId();
-    const tenants = Digit.SessionStorage.get("Tenants").map(item => item.code).join(',');
-    const codes = Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
+    const tenants = Digit.SessionStorage.get("Tenants")? Digit.SessionStorage.get("Tenants").map(item => item.code).join(','):"";
+    const codes = Digit.SessionStorage.get("Tenants")?Digit.SessionStorage.get("Tenants").filter(item => item.code !== "pg")
     .map(item => item.code)
-    .join(',');
+    .join(','):"";
     const sessionTenantId = Digit.SessionStorage.get("Employee.tenantId");
     const isCodePresent = (array, codeToCheck) =>{
       return array.some(item => item.code === codeToCheck);

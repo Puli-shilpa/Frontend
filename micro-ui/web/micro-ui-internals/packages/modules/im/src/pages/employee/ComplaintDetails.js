@@ -126,7 +126,7 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
 
   function addComment(e) { 
     if(e.target.value.length>256){
-      setError(t("CS_COMMENT_LENGTH_LIMIT_EXCEED77"))
+      setError(t("CS_COMMENT_LENGTH_LIMIT_EXCEED"))
     }
     // else if(!/^[a-zA-Z0-9\s./,]*$/.test(e.target.value)){
     //   setError(t("CS_COMMENT_INVALID_CHARACTERS"))
@@ -455,7 +455,7 @@ export const ComplaintDetails = (props) => {
     setImageZoom(imageSource);
   }
   function zoomImageWrapper(imageSource, index){
-      if(imageSource.includes("small")){
+      if(imageSource.includes("jpeg") || imageSource.includes("jpg") || imageSource.includes("jpeg") || imageSource.includes("png")){
         zoomImage(imagesToShowBelowComplaintDetails?.fullImage[index]);
       }
       else{
@@ -682,7 +682,7 @@ return (
       {imagesToShowBelowComplaintDetails?.thumbs ? (
         <div>
         <CardLabel style={{marginTop:'18px', fontWeight:'bolder'}}>{t("CS_TICKET_ADDITIONAL_DETAILS")}</CardLabel>
-        <DisplayPhotos srcs={imagesToShowBelowComplaintDetails?.thumbs} onClick={(source, index) => zoomImageWrapper(source, index)} />
+        <DisplayPhotos srcs={imagesToShowBelowComplaintDetails?.fullImage} onClick={(source, index) => zoomImageWrapper(source, index)} />
         </div>
       ) : null}
       <BreakLine />

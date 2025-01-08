@@ -28,7 +28,7 @@ const DetailsCard = ({ data, serviceRequestIdKey, linkPrefix, handleSelect, sele
       </style>
         {data.map((object, itemIndex) => {
           let key = Object.keys(object)
-          const incidentId = object[key[0]]
+          const incidentId = object[key[0]].props.children
           return (
             <Link
               key={itemIndex}

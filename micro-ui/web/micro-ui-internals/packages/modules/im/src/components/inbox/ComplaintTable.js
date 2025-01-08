@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "@egovernments/digit-ui-react-components";
+import Table from "../../../../../react-components/src/atoms/Table"
 
 const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage, currentPage, totalRecords, pageSizeLimit, onPageSizeChange }) => (
   
@@ -15,7 +15,7 @@ const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage
           }
         `}
       </style>
-<div style={{overflowX:"scroll"}}>
+
   <Table
     t={t}
     data={data}
@@ -29,7 +29,7 @@ const ComplaintTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage
     pageSizeLimit={pageSizeLimit}
   />
   </div>
-   </div>
+   
 );
 console.log("jhisss", ComplaintTable)
 export default ComplaintTable;

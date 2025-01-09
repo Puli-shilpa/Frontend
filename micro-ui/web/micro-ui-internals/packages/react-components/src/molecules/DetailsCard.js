@@ -7,10 +7,10 @@ import SubmitBar from "../atoms/SubmitBar";
 export const Details = ({ label, name, onClick}) => {
   return (
     <div className="detail" onClick={onClick}>
-      <span className="label">
+      <div className="label">
         <h2>{label}</h2>
-      </span>
-      <span className="name" style={{overflowWrap:"break-word", color:"black", paddingTop: "16px"}}>{name}</span>
+      </div>
+      <div className="name" style={{overflowWrap:"break-word", color:"black", paddingTop: "16px"}}>{name}</div>
     </div>
   );
 };

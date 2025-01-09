@@ -1,5 +1,5 @@
 {
-  "name": "@egovernments/digit-ui-react-components",
+  "name": "@selco/digit-ui-react-components",
   "version": "1.8.0",
   "license": "MIT",
   "main": "dist/index.js",

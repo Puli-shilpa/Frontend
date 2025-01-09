@@ -13,7 +13,7 @@ import {
   SubmitBar,
   LabelFieldPair,
   Header,
-} from "@selco/digit-ui-react-component";
+} from "@selco/digit-ui-react-components";
 
 import { useTranslation } from "react-i18next";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, Dropdown } from "@selco/digit-ui-react-component";
+import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, Dropdown } from "@selco/digit-ui-react-components";
 export const isCodePresent = (array, codeToCheck) =>{
   return array.some(item => item.code === codeToCheck);
 }

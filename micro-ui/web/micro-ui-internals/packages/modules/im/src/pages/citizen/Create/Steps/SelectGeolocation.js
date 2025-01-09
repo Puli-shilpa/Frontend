@@ -1,5 +1,5 @@
 import React from "react";
-import { LocationSearchCard } from "@selco/digit-ui-react-component";
+import { LocationSearchCard } from "@selco/digit-ui-react-components";
 
 const SelectGeolocation = ({ onSelect, onSkip, value, t }) => {
   let pincode = "";

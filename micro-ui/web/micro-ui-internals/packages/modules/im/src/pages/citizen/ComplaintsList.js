@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
-import { Card, Header, Loader } from "@selco/digit-ui-react-component";
+import { Card, Header, Loader } from "@selco/digit-ui-react-components";
 import { LOCALE } from "../../constants/Localization";
 import Complaint from "../../components/Complaint";
 

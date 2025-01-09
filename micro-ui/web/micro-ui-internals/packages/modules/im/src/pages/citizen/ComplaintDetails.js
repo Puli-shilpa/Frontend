@@ -16,7 +16,7 @@ import {
   ImageViewer,
   Loader,
   Toast,
-} from "@selco/digit-ui-react-component";
+} from "@selco/digit-ui-react-components";
 
 import TimeLine from "../../components/TimeLine";
 

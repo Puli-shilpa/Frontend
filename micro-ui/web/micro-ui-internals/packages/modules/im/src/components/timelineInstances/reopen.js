@@ -1,4 +1,4 @@
-import { GreyOutText } from "@selco/digit-ui-react-component";
+import { GreyOutText } from "@selco/digit-ui-react-components";
 import React from "react";
 const Reopen = ({ text, reopenDate }) => {
   // let { t } = useTranslation();

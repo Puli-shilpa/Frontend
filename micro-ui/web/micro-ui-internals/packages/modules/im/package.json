@@ -1,6 +1,6 @@
 {
   "name": "@selco/digit-ui-module-pgr",
-  "version": "1.0.11",
+  "version": "1.0.10",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",

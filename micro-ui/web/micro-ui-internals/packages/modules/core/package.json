@@ -1,5 +1,5 @@
 {
-  "name": "@egovernments/digit-ui-module-core",
+  "name": "@selco/digit-ui-module-core",
   "version": "1.8.0",
   "license": "MIT",
   "main": "dist/index.js",

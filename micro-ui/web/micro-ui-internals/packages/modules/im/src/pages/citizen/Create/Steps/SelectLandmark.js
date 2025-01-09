@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormStep } from "@selco/digit-ui-react-component";
+import { FormStep } from "@selco/digit-ui-react-components";
 
 const SelectLandmark = ({ t, config, onSelect, value }) => {
   const [landmark, setLandmark] = useState(() => {

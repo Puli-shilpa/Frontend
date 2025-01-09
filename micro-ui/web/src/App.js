@@ -9,7 +9,7 @@ import {
   initIMComponents,
   IMReducers,
 } from "@selco/digit-ui-module-pgr";
-import { DigitUI } from "@egovernments/digit-ui-module-core";
+import { DigitUI } from "@selco/digit-ui-module-core";
 import { initDSSComponents } from "@selco/digit-ui-module-dss";
 import { initEngagementComponents } from "@egovernments/digit-ui-module-engagement";
 import { initHRMSComponents } from "@selco/digit-ui-module-hrms";

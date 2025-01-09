@@ -1,4 +1,4 @@
-import { FormStep } from "@selco/digit-ui-react-component";
+import { FormStep } from "@selco/digit-ui-react-components";
 import React, { useState } from "react";
 
 const SelectPincode = ({ t, config, onSelect, value }) => {

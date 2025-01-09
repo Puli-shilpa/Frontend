@@ -2,12 +2,12 @@ import React, { useState, useEffect, useMemo,useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
-import { DatePicker, Dropdown, ImageUploadHandler, Toast, TextInput,MultiUploadWrapper, UploadFile, CardLabel } from "@egovernments/digit-ui-react-components";
+import { DatePicker, Dropdown, ImageUploadHandler, Toast, TextInput,MultiUploadWrapper, UploadFile, CardLabel } from "@selco/digit-ui-react-components";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { FormComposer } from "../../../components/FormComposer";
 import { createComplaint } from "../../../redux/actions/index";
-import { Loader, Header } from "@egovernments/digit-ui-react-components";
+import { Loader, Header } from "@selco/digit-ui-react-components";
 import { Link } from "react-router-dom";
 
 export const CreateComplaint = ({ parentUrl }) => {

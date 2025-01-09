@@ -31,7 +31,7 @@ import {
   SectionalDropdown,
   ImageUploadHandler,
   MultiUploadWrapper
-} from "@egovernments/digit-ui-react-components";
+} from "@selco/digit-ui-react-components";
 import { Link } from "react-router-dom";
 
 import { Close } from "../../Icons";

@@ -1,6 +1,6 @@
 {
   "name": "@selco/digit-ui-module-dss",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "Digit Dashboard Module",
   "main": "dist/index.js",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@upyog/digit-ui-react-components": "1.7.0-beta.4",
+    "@selco/digit-ui-react-components":"1.8.0",
     "microbundle-crl": "^0.13.11",
     "lodash": "4.17.21",
     "react": "17.0.2",

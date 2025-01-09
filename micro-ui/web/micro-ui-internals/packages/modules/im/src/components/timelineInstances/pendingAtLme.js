@@ -1,4 +1,4 @@
-import { TelePhone, CheckPoint } from "@egovernments/digit-ui-react-components";
+import { TelePhone, CheckPoint } from "@selco/digit-ui-react-component";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

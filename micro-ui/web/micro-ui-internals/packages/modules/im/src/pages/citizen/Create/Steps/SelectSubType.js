@@ -1,4 +1,4 @@
-import { TypeSelectCard } from "@egovernments/digit-ui-react-components";
+import { TypeSelectCard } from "@selco/digit-ui-react-component";
 import React, { useState } from "react";
 
 const SelectSubType = ({ t, config, onSelect, value }) => {

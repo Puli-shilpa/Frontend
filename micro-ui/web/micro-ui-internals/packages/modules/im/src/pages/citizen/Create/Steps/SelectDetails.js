@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormStep } from "@egovernments/digit-ui-react-components";
+import { FormStep } from "@selco/digit-ui-react-component";
 
 const SelectDetails = ({ t, config, onSelect, value }) => {
   const [details, setDetails] = useState(() => {

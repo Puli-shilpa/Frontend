@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckBox, Loader } from "@egovernments/digit-ui-react-components";
+import { CheckBox, Loader } from "@selco/digit-ui-react-component";
 import { useTranslation } from "react-i18next";
 
 const Status = ({ complaints, onAssignmentChange, pgrfilters, statusArray }) => {

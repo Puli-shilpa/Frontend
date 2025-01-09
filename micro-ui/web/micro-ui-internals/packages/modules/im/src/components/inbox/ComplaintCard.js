@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { FilterAction, Card, DetailsCard, PopUp, SearchAction } from "@selco/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Filter from "./Filter";

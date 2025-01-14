@@ -109,6 +109,8 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
   const state = Digit.ULBService.getStateId();
   const reopenReasonMenu = [t(`CS_REOPEN_OPTION_ONE`), t(`CS_REOPEN_OPTION_TWO`), t(`CS_REOPEN_OPTION_THREE`), t(`CS_REOPEN_OPTION_FOUR`)];
   const { isMdmsLoading, data: rejectReasons } = Digit.Hooks.pgr.useMDMS(state, "Incident", ["RejectReasons"]);
+  const [dataState, setDataState] = useState({ newArr: [], mappedArray: [] });
+  console.log("rejectedreason", rejectReasons)
   // const uploadFile = useCallback( () => {
 
   //   }, [file]);
@@ -196,11 +198,20 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
       e && setFile(e.file);
     }
   }
+  useEffect(() => {
+    
+    if (dataState.newArr && dataState.mappedArray) {
+      selectfile(dataState.newArr, dataState.mappedArray);
+    }
+  }, [dataState]);
 
   const getData = (state) => {  
     let data = Object.fromEntries(state);
+    const mappedArray = state.map(item => {
+      return  item[1];
+    })
     let newArr = Object.values(data);
-    selectfile(newArr[newArr.length - 1],newArr);
+    setDataState({ newArr, mappedArray });
   };
   return (
     <Modal
@@ -265,7 +276,16 @@ const ComplaintDetailsModal = ({ workflowDetails, complaintDetails, close, popup
       {selectedAction === "REJECT" ? (
           <React.Fragment>
             <CardLabel>{t("CS_REJECT_COMPLAINT")}*</CardLabel>
-            <Dropdown selected={selectedRejectReason} option={rejectReasons?.Incident?.RejectReasons} optionKey={"code"} select={onSelectRejectReason} />
+            <Dropdown 
+  selected={selectedRejectReason} 
+  option={rejectReasons?.Incident?.RejectReasons?.map(reason => ({
+    ...reason,
+    localizedCode: t(reason.code) // Use localized text if available, otherwise fallback to default name
+  }))} 
+  optionKey={"localizedCode"} 
+  select={onSelectRejectReason}
+/>
+
           </React.Fragment>
         ) : null}
 
@@ -629,7 +649,7 @@ export const ComplaintDetails = (props) => {
       )}</div> : null}
       {checkpoint.status !== "COMPLAINT_FILED" && checkpoint?.performedAction!=="INITIATE" && thumbnailsToShow?.thumbs?.length > 0 ? <div className="TLComments">
         <h3>{t("CS_COMMON_ATTACHMENTS")}</h3>
-        <DisplayPhotos srcs={thumbnailsToShow.thumbs} onClick={(src, index) => zoomImageTimeLineWrapper(src, index,thumbnailsToShow,arr)} />
+        <DisplayPhotos srcs={thumbnailsToShow.fullImage} onClick={(src, index) => zoomImageTimeLineWrapper(src, index,thumbnailsToShow,arr)} />
       </div> : null}
       {checkpoint.status==="REJECTED" ? (
         <div className="TLComments">

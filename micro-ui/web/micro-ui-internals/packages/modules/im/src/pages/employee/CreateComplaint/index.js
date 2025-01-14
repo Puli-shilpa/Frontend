@@ -20,7 +20,7 @@ export const CreateComplaint = ({ parentUrl }) => {
   const [file, setFile]=useState(null);
   const [showToast, setShowToast] = useState(null);
   const [uploadedFile, setUploadedFile]=useState([]);
-  const [uploadedImages, setUploadedImagesIds] = useState(null)
+    const [uploadedImages, setUploadedImagesIds] = useState(null)
   const [district, setDistrict]=useState(null);
   const [block, setBlock]=useState(null);
   const [error, setError] = useState(null);
@@ -38,6 +38,7 @@ export const CreateComplaint = ({ parentUrl }) => {
   const dropdownRefs = useRef([]); // Create refs array for dropdowns
   const [errors, setErrors] = useState(Array(6).fill(""));
   const [subType, setSubType]=useState(JSON?.parse(sessionStorage.getItem("subType")) || {});
+  const [dataState, setDataState] = useState({ newArr: [], mappedArray: [] });
   let sortedSubMenu=[];
   if(subTypeMenu!==null){
     sortedSubMenu=subTypeMenu.sort((a,b)=>a.name.localeCompare(b.name))
@@ -287,7 +288,7 @@ useEffect(async () => {
   //   setBlockMenu([value]);
   // };
   async function selectFile(e){
-    setFile(e.target.files[0]);
+  setFile(e.target.files[0]);
   }
   const handleUpload = (ids) => {
 
@@ -321,7 +322,7 @@ useEffect(async () => {
       additionalDetails: {},
     }));
   }
-    const formData = { ...data,complaintType, subType, district, block, healthCareType, healthcentre, reporterName, uploadedFile,uploadImages, tenantId:healthcentre?.code};
+      const formData = { ...data,complaintType, subType, district, block, healthCareType, healthcentre, reporterName, uploadedFile,uploadImages, tenantId:healthcentre?.code};
     await dispatch(createComplaint(formData));
     await client.refetchQueries(["fetchInboxData"]);
     history.push(parentUrl + "/incident/response");
@@ -346,9 +347,9 @@ useEffect(async () => {
     const mappedArray = state.map(item => {
       return  item[1];
     })
-    let newArr = Object.values(data);
-    
-    selectfile(newArr[newArr.length - 1],mappedArray);
+        let newArr = Object.values(data);
+
+    setDataState({ newArr, mappedArray });
   };
   const handleButtonClick = () => {
     const hasEmptyFields = fieldsToValidate.some(({ field }) => field === null || Object.keys(field).length === 0);
@@ -381,7 +382,7 @@ useEffect(async () => {
             documentUid: "",
             additionalDetails: {},
             };
-          return newFile
+                      return newFile
         })
       }
       // const newFile={
@@ -408,6 +409,11 @@ useEffect(async () => {
       //arr && setFile(arr.file);
     }
   }
+  useEffect(() => { 
+    if (dataState.newArr && dataState.mappedArray) {
+      selectfile(dataState.newArr, dataState.mappedArray);
+    }
+  }, [dataState]);
   const config = [
     
     {

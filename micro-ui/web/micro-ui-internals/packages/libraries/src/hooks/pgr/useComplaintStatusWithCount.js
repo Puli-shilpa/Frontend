@@ -30,7 +30,7 @@ const useComplaintStatusCount = (complaints,tenant) => {
       },  
     });
         useEffect(() => { 
-        if(data && data.items && data.items.length>0){
+        if(data && data.items && data.items.length>0 && data.statusMap){
           const counts=data.statusMap.reduce((acc, item)=>{
               const status=item.applicationstatus;
               if(status){

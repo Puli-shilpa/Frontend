@@ -106,8 +106,12 @@ const useInboxData = (searchParams,tenantIdNew) => {
  };
 
 const mapWfBybusinessId = (wfs) => {
-  return wfs.reduce((object, item) => {
-    return { ...object, [item["businessId"]]: item };
+    return wfs.reduce((object, item) => {
+    let businessId="";
+    if(item!==null){
+      businessId=item["businessId"];
+    }
+    return { ...object, [businessId] : item };
   }, {});
 };
 

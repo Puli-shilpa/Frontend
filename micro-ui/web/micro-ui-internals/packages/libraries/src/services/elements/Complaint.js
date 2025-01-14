@@ -96,10 +96,10 @@ export const Complaint = {
       if(!complaintDetails.incident.additionalDetail.rejectReason)
       {
         complaintDetails.incident.additionalDetail.rejectReason=[]
-        complaintDetails.incident.additionalDetail.rejectReason.push(selectedRejectReason?.code)
+        complaintDetails.incident.additionalDetail.rejectReason.push(selectedRejectReason?.localizedCode)
       }
       else {
-        complaintDetails.incident.additionalDetail.rejectReason.push(selectedRejectReason?.code)
+        complaintDetails.incident.additionalDetail.rejectReason.push(selectedRejectReason?.localizedCode)
       }    
     }
    

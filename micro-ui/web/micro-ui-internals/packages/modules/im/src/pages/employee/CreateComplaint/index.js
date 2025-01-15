@@ -124,15 +124,18 @@ useEffect(async () => {
     const selectedDistrict = {
       key: t(selectedTenantData.city.districtCode),
       codeNew: selectedTenantData.city.districtCode,
-      name: t(selectedTenantData.city.districtCode.charAt(0).toUpperCase() + selectedTenantData.city.districtCode.slice(1).toLowerCase()),
+      name: t(selectedTenantData.city.districtName),
+    }; 
+    const selectedTenantBlock = blockNew!== undefined ? blockNew.find(item => item.code=== selectedTenantData.city.blockCode):"";
+    let selectedBlock=""
+    if(selectedTenantBlock!==undefined && selectedTenantBlock.length!==0){ 
+    selectedBlock = {
+      key: t(selectedTenantBlock.code.split(".")[1].toUpperCase()),
+      name: t(selectedTenantBlock.name),
+      codeNew : selectedTenantBlock.code,
+      codeKey:selectedTenantBlock.code.split(".")[1].toUpperCase()
     };
-    
-    const selectedBlock = {
-      key: t(selectedTenantData.city.blockCode.split(".")[1].toUpperCase()),
-      name: t(selectedTenantData.city.blockCode.split(".").pop().charAt(0).toUpperCase() + selectedTenantData.city.blockCode.split(".").pop().slice(1)),
-      codeNew : selectedTenantData.city.blockCode,
-      codeKey:selectedTenantData.city.blockCode.split(".")[1].toUpperCase()
-    };
+  }
       handleDistrictChange(selectedDistrict);
       handleBlockChange(selectedBlock)
      
@@ -240,7 +243,7 @@ useEffect(async () => {
       
       const block  = blockNew?.find(item => item?.name.toUpperCase() === selectedBlock?.codeNew.split(".")[1].toUpperCase())
       
-      const phcMenuType= phcMenu?.tenant?.tenants.filter(centre => centre?.city?.blockCode === block?.code)
+      const phcMenuType= phcMenu?.tenant?.tenants.filter(centre => centre?.city?.blockCode === selectedBlock?.codeNew)
       const translatedPhcMenu=phcMenuType?.map(item=>({
         ...item,
         key:item?.name,

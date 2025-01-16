@@ -434,7 +434,11 @@ export const ComplaintDetails = (props) => {
 
   useEffect(() => {
     (async () => {
-      const assignWorkflow = await Digit?.WorkflowService?.getByBusinessId(tenant, id);
+      if(complaintDetails!==undefined){
+        let fetchedTenantId=complaintDetails?.incident?.tenantId;
+        let fetchedId=complaintDetails?.incident?.incidentId;
+        const assignWorkflow = await Digit?.WorkflowService?.getByBusinessId(fetchedTenantId, fetchedId);
+      } 
     })();
   }, [complaintDetails]);
 

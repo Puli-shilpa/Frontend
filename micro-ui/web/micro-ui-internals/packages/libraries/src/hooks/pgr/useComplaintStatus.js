@@ -26,20 +26,20 @@ const useComplaintStatus = () => {
     let WorkflowService = null;
     // const user = Digit.UserService.getUser();
     // const tenantId = user?.info?.tenantId;
-    (async () => {
+    
       // let stateCode =
       //   Digit.SessionStorage.get("userType") == "employee"
       //     ? Digit.SessionStorage.get("Employee.tenantId")
       //     : Digit.SessionStorage.get("Citizen.tenantId");
-      WorkflowService = await Digit.WorkflowService.init(tenantId, "Incident");
+     // WorkflowService = await Digit.WorkflowService.init(tenantId, "Incident");
       
-      let applicationStatus = data!==undefined ? data.data.statusMap.filter((state) => state.applicationstatus)
+      let applicationStatus = data!==undefined ? data.data.statusMap.filter((state) => state.statusid)
         .map((state) => ({
-          name: t(`CS_COMMON_${state.applicationstatus}`),
-          code: state.applicationstatus,
+          name: t(`CS_COMMON_${state.statusid}`),
+          code: state.statusid,
         })):"";
       setComplaintStatus(applicationStatus);
-    })();
+    //})();
   }, [data, t, tenantId]);
 
   return complaintStatus;

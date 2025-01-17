@@ -133,6 +133,19 @@ const combineResponses = (incidentDetails, workflowInstances) => {
         sla: incident.applicationStatus==="RESOLVED" ? "-" : wfMap[incident.incidentId]?.businesssServiceSla+wfMap[incident.incidentId]?.auditDetails?.createdTime-currentTime,
         tenantId: incident.tenantId,
       })
+    }else if (!wfMap?.[incident.incidentId]){
+      data.push({
+        incidentId: incident.incidentId,
+        incidentType:incident.incidentType,
+        incidentSubType: incident.incidentSubType,
+        phcType:incident.phcType,
+        //priorityLevel : complaint.service.priority,
+        //locality: complaint.service.address.locality.code,
+        status: incident.applicationStatus,
+        taskOwner: "-",
+        sla: incident.applicationStatus==="RESOLVED" ? "-" : wfMap[incident.incidentId]?.businesssServiceSla+wfMap[incident.incidentId]?.auditDetails?.createdTime-currentTime,
+        tenantId: incident.tenantId,
+      })
     }});
     
   return data;

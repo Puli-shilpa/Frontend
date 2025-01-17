@@ -32,7 +32,7 @@ const useComplaintStatusCount = (complaints,tenant) => {
         useEffect(() => { 
         if(data && data.items && data.items.length>0 && data.statusMap){
           const counts=data.statusMap.reduce((acc, item)=>{
-              const status=item.applicationstatus;
+              const status=item.statusid;
               if(status){
                 acc[status]=item.count;
               }

@@ -26,21 +26,21 @@ const useComplaintStatus = () => {
     let WorkflowService = null;
     // const user = Digit.UserService.getUser();
     // const tenantId = user?.info?.tenantId;
-    
+    (async () => {
       // let stateCode =
       //   Digit.SessionStorage.get("userType") == "employee"
       //     ? Digit.SessionStorage.get("Employee.tenantId")
       //     : Digit.SessionStorage.get("Citizen.tenantId");
-     // WorkflowService = await Digit.WorkflowService.init(tenantId, "Incident");
-      
-      let applicationStatus = data!==undefined ? data.data.statusMap.filter((state) => state.statusid)
+      WorkflowService = await Digit.WorkflowService.init(tenantId, "Incident");
+      let applicationStatus = WorkflowService.BusinessServices[0].states
+        .filter((state) => state.applicationStatus)
         .map((state) => ({
-          name: t(`CS_COMMON_${state.statusid}`),
-          code: state.statusid,
-        })):"";
+          name: t(`CS_COMMON_${state.applicationStatus}`),
+          code: state.applicationStatus,
+        }));
       setComplaintStatus(applicationStatus);
-    //})();
-  }, [data, t, tenantId]);
+    })();
+  }, [t, tenantId]);
 
   return complaintStatus;
 };
